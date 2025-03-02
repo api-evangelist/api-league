@@ -5,7 +5,9 @@ apis:
   - aid: api-league:api-league
     name: API League
     tags:
-      - API
+      - APIs
+      - Discovery
+      - Mangement
     humanURL: ' https://apileague.com'
     properties:
       - url: ' https://apileague.com'
