@@ -5,7 +5,6 @@ apis:
   - aid: api-league:api-league
     name: API League
     tags:
-      - APIs
       - Discovery
       - Mangement
     humanURL: ' https://apileague.com'
@@ -17,7 +16,6 @@ apis:
       and more.
 name: API League
 tags:
-  - APIs
   - Discovery
   - Mangement
 type: Index
