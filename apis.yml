@@ -76,6 +76,10 @@ common:
         description: Add screenshot capture, image search, color detection, and vector search to media workflows.
       - name: Knowledge Products
         description: Embed quotes, trivia, life hacks, affirmations, and riddles into productivity and wellness apps.
+  - type: Integrations
+    url: https://apileague.com/integrations
+integrations:
+  - name: API League
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
