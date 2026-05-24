@@ -78,6 +78,8 @@ common:
         description: Embed quotes, trivia, life hacks, affirmations, and riddles into productivity and wellness apps.
   - type: Integrations
     url: https://apileague.com/integrations
+  - type: LLMsTxt
+    url: https://apileague.com/llms.txt
 integrations:
   - name: API League
 maintainers:
