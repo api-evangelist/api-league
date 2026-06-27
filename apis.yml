@@ -39,7 +39,7 @@ apis:
     properties:
       - type: Documentation
         url: https://apileague.com/apis/
-      - type: SignUp
+      - type: Signup
         url: https://apileague.com
 common:
   - type: Website
@@ -78,7 +78,7 @@ common:
         description: Embed quotes, trivia, life hacks, affirmations, and riddles into productivity and wellness apps.
   - type: Integrations
     url: https://apileague.com/integrations
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://apileague.com/llms.txt
 integrations:
   - name: API League
