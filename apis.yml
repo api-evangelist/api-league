@@ -42,6 +42,8 @@ apis:
       - type: Signup
         url: https://apileague.com
 common:
+  - type: DomainSecurity
+    url: security/api-league-domain-security.yml
   - type: Website
     url: https://apileague.com
   - type: Documentation
