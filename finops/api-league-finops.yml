@@ -14,7 +14,7 @@ created: '2026-05-04'
 # Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
 # bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
 method: generated
-modified: '2026-05-04'
+modified: '2026-09-02'
 tags:
   - API Marketplace
   - Books
@@ -72,6 +72,12 @@ domains:
 billingModel:
   pricingCategory: Usage-Based
   billingFrequency: Monthly
+  # 2026-09-02: corrected against https://apileague.com/pricing/ — API League meters in TOKENS
+  # per DAY (a per-endpoint cost that also varies with parameters), not in requests. Paid tiers
+  # bill per-token overage above the daily allowance; the free tier hard-stops with HTTP 402.
+  meteringUnit: token
+  quotaPeriod: day
+  quotaReset: midnight UTC
   billingCurrency: USD
   chargeCategories:
     - Usage
@@ -87,13 +93,13 @@ focusColumns:
   PublisherName: API League
   InvoiceIssuerName: API League
   PricingCategory: Usage-Based
-  PricingUnit: request
+  PricingUnit: token
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: api_tokens
+    description: Count of billable tokens consumed (the actual billing unit; returned per request in the X-API-Quota-Request response header)
+    unit: token
     aggregation: sum
     dimensions:
       - api
@@ -119,7 +125,7 @@ meters:
       - tier
 apis:
   - name: API League Platform
-    baseURL: ''
+    baseURL: https://api.apileague.com
     tags:
       - API Marketplace
       - Developer Tools
@@ -128,9 +134,9 @@ apis:
     serviceName: API League Platform
     serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
+  - name: Cost per 1K Tokens
+    metric: billed_cost / (api_tokens / 1000)
+    target: 'published overage: $0.006 Rookie / $0.004 Pro / $0.002 Champion per token'
   - name: Cost per Active Consumer
     metric: billed_cost / active_consumers
     target: TBD

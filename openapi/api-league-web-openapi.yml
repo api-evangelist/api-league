@@ -1,0 +1,467 @@
+openapi: 3.0.0
+info:
+  title: API League — Web
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Web
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /extract-content:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    nullable: true
+                  main_text:
+                    type: string
+                    nullable: true
+                  main_html:
+                    type: string
+                    nullable: true
+                  images:
+                    type: array
+                    items:
+                      type: string
+                      nullable: true
+              examples:
+                Response:
+                  value:
+                    title: Happy-Go-Lucky Australia Is Feeling Neither Happy, Nor Lucky
+                    main_text: For nearly three decades, Australia seemed to have a sort of get-out-of-jail
+                      card that allowed it to glide through [...]
+                    main_html: <article>[...]</article>
+                    images:
+                    - https://static01.nyt.com/images/2024/03/19/multimedia/00oz-misery-kbjt/00oz-misery-kbjt-superJumbo.jpg?quality=75&auto=webp
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: url
+        description: The url for which the content will be extracted.
+        schema:
+          pattern: .
+          maxLength: 1000
+          type: string
+          example: https://www.nytimes.com/2024/03/27/world/australia/economy-cost-of-living.html
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/extract-web-content-api/
+      summary: Extract Content from a Web Page API
+      tags:
+      - Web
+      description: Extract the main content from a web page. This API is useful for extracting the main
+        text, title, and images from a web page. It can be used to create a summary of the content of
+        a web page, or to extract the main content of a web page to display it in a different format.
+      operationId: extractContentFromAWebPageAPI
+      deprecated: false
+  /extract-publish-date:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publish_date:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    publish_date: '2023-03-27'
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: url
+        description: The url for which the publish date should be extracted.
+        schema:
+          pattern: .
+          maxLength: 1000
+          type: string
+          example: https://www.nytimes.com/2024/03/27/world/australia/economy-cost-of-living.html
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/extract-publish-date-api/
+      summary: Extract Publish Date API
+      tags:
+      - Web
+      description: Extract the publish date of an article (news or blog). The API will return the publish
+        date of the article if it can be found. The date returned is in the format YYYY-MM-DD.
+      operationId: extractPublishDateAPI
+      deprecated: false
+  /extract-authors:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        link:
+                          type: string
+                          nullable: true
+                        name:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    authors:
+                    - link: https://www.nytimes.com/by/natasha-frost
+                      name: Natasha Frost
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: url
+        description: The url with the article from which authors should be extracted.
+        schema:
+          pattern: .
+          maxLength: 1000
+          type: string
+          example: https://www.nytimes.com/2024/03/27/world/australia/economy-cost-of-living.html
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/extract-authors-api/
+      summary: Extract Authors API
+      tags:
+      - Web
+      description: Extracts the authors from a given URL. This API is useful for extracting the authors
+        from a blog post or news article. The API will return a list of authors with their names and links
+        to their profiles if available.
+      operationId: extractAuthorsAPI
+      deprecated: false
+  /search-web:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          nullable: true
+                        title:
+                          type: string
+                          nullable: true
+                        summary:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    results:
+                    - url: https://en.wikipedia.org/wiki/Penguin
+                      title: Penguin - Wikipedia
+                      summary: 'Penguins are a group of aquatic flightless birds from the family Spheniscidae
+                        (/ s f ɪ ˈ n ɪ s ɪ d iː,-d aɪ /) of the order Sphenisciformes (/ s f ɪ ˈ n ɪ s
+                        ə f ɔːr m iː z /). They live almost exclusively in the Southern Hemisphere: only
+                        one species, the Galápagos penguin, is found north of the Equator.Highly adapted
+                        for life in the ocean water, penguins have countershaded dark ...'
+                    - url: https://www.britannica.com/animal/penguin
+                      title: Penguin | Features, Habitat, & Facts | Britannica
+                      summary: Learn about penguins, the flightless marine birds that live only in the
+                        Southern Hemisphere. Find out their general features, habitat, and facts, such
+                        as their distribution, diet, behavior, and conservation status. See images and
+                        videos of different species of penguins, such as the emperor, the fairy, and the
+                        Galapagos penguin.
+                    - url: https://www.nationalgeographic.com/animals/birds/facts/penguins-1
+                      title: Penguins, facts and photos - National Geographic
+                      summary: Learn about the 18 different species of penguins, their adaptations, behavior,
+                        and threats. Find out how they live, breed, and feed in the Antarctic and subantarctic
+                        regions, and how they cope with the challenges of climate change and predators.
+                    - url: https://www.nhl.com/penguins/
+                      title: Official Pittsburgh Penguins Website | Pittsburgh Penguins - NHL.com
+                      summary: The official website of the Pittsburgh Penguins, a professional ice hockey
+                        team in the National Hockey League. Find news, tickets, schedule, photos, video,
+                        scores, stats, community, and more about the team and its players.
+                    - url: https://www.worldwildlife.org/species/penguin
+                      title: Penguin | Species | WWF - World Wildlife Fund
+                      summary: Learn about the 17 to 19 species of penguins that live in the Southern
+                        Hemisphere, from the tiny blue penguins of Australia and New Zealand to the majestic
+                        emperor penguins of Antarctica. Find out why they matter, what threats they face,
+                        and how you can help protect them.
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: query
+        description: The search query.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: penguins
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of results to return in range [1,50]
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 50
+          type: integer
+          example: 5
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/web-search-api/
+      summary: Search Web API
+      tags:
+      - Web
+      description: Search the web for a given query. The API returns a list of results with the title,
+        summary, and URL.
+      operationId: searchWebAPI
+      deprecated: false
+  /retrieve-page-rank:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page_rank:
+                    type: number
+                  position:
+                    type: integer
+                  percentile:
+                    type: number
+              examples:
+                Response:
+                  value:
+                    page_rank: 9.13
+                    position: 30
+                    percentile: 0.9999971
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: domain
+        description: The domain for which the page rank should be returned.
+        schema:
+          pattern: .
+          maxLength: 100
+          type: string
+          example: amazon.com
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/page-rank-api/
+      summary: Retrieve Page Rank API
+      tags:
+      - Web
+      description: This API allows you to retrieve the page rank of a given URL. The API returns the page
+        rank, the position of the URL in the search results, and the percentile of the page rank.
+      operationId: retrievePageRankAPI
+      deprecated: false
+  /verify-email:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    nullable: true
+                  domain:
+                    type: string
+                    nullable: true
+                  first_name:
+                    type: string
+                    nullable: true
+                  middle_name:
+                    type: string
+                    nullable: true
+                  last_name:
+                    type: string
+                    nullable: true
+                  full_name:
+                    type: string
+                    nullable: true
+                  username:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    nullable: true
+                  result:
+                    type: string
+                    nullable: true
+                  disposable:
+                    type: boolean
+                  accept_all:
+                    type: boolean
+                  free_provider:
+                    type: boolean
+              examples:
+                Response:
+                  value:
+                    email: maxtest@gmail.com
+                    domain: gmail.com
+                    first_name: Max
+                    middle_name: null
+                    last_name: Test
+                    full_name: Max Test
+                    username: mtst
+                    image: https://0.gravatar.com/avatar/e61fff419c2ddf685b1520e768d33e40
+                    result: valid
+                    disposable: false
+                    accept_all: false
+                    free_provider: true
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: email
+        description: The email address to verify.
+        schema:
+          pattern: .
+          maxLength: 100
+          type: string
+          example: maxtest@gmail.com
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/email-verification-api/
+      summary: Verify Email Address API
+      tags:
+      - Web
+      description: This email checker API allows you to validate an email address. The validation will
+        parse the name if possible and check whether the email is not just a disposable junk email address.
+        The API will also check if the email is from a free provider like Gmail, Yahoo, or Hotmail.
+      operationId: verifyEmailAddressAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

@@ -1,11 +1,18 @@
 aid: api-league
 name: API League
 description: >-
-  API League is a comprehensive API marketplace aggregating 60+ best-in-class
-  APIs across categories including books, news, humor, food, knowledge, art,
-  web, text processing, and media. It offers code examples in 21 languages,
-  SDKs, Postman collections, and free API key access for developers to launch
-  projects quickly.
+  API League is a single-key hub of 55 read-only HTTP APIs spanning twelve categories — Books,
+  News, Humor, Food, Knowledge, Games, Art, Web, Text, Media, Math and Storage — operated by
+  skycraft GmbH of Dresden, Germany, which has been shipping developer APIs since 2015. Every
+  operation is an HTTP GET against https://api.apileague.com, authenticated with one API key
+  passed as an api-key query parameter or an x-api-key header, and described by a published
+  OpenAPI 3.0 contract (v1.9.0) that carries an operationId, a summary, a tag and a worked
+  response example on all 55 operations. Billing is metered in tokens per day rather than
+  requests per month, and every response returns X-API-Quota-Request, X-API-Quota-Used and
+  X-API-Quota-Left so a consumer can read its remaining budget at runtime. Client libraries are
+  generated for 21 languages from that contract, though only the JavaScript client is published
+  to a package registry. Pricing is fully self-serve across four tiers from a free
+  50-token-per-day plan to $199/mo, with a 99.9% uptime target and a public status page.
 type: Index
 deliveryModel:
   model: saas
@@ -36,10 +43,14 @@ tags:
   - Books
   - Developer Tools
   - Food
+  - Games
   - Humor
+  - Media
   - News
+  - OpenAPI
   - SDK
   - Text Processing
+  - Web Scraping
 tags_raw:
   - API Marketplace
   - Books
@@ -52,17 +63,22 @@ tags_raw:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/api-league/refs/heads/main/apis.yml
 created: '2025-03-01'
-modified: '2026-04-19'
+modified: '2026-09-02'
 specificationVersion: '0.23'
 apis:
   - aid: api-league:api-league-platform
     name: API League Platform
     description: >-
-      The API League Platform provides access to 60+ APIs spanning books, news,
-      humor, food, knowledge, art, web, text processing, and media categories.
-      Authentication uses API keys with free signup. SDKs are available in 21
-      programming languages including Java, JavaScript, Python, Go, and C#.
+      The API League Platform exposes 55 read-only GET operations across twelve categories:
+      Books (2), News (3), Humor (6), Food (4), Knowledge (5), Games (3), Art (4), Web (6),
+      Text (13), Media (6), Math (1) and Storage (2). One API key covers the whole surface —
+      there is no OAuth and no scopes — sent as an api-key query parameter or, preferably, an
+      x-api-key header. Errors use a flat vendor JSON envelope with six declared statuses
+      (401, 402, 403, 404, 406, 429) rather than RFC 9457. Search-shaped operations paginate
+      with number/offset. SDKs are generated for 21 languages from the published OpenAPI 3.0
+      contract.
     humanURL: https://apileague.com
+    baseURL: https://api.apileague.com
     tags:
       - API Marketplace
       - Developer Tools
@@ -71,17 +87,128 @@ apis:
     properties:
       - type: Documentation
         url: https://apileague.com/apis/
-      - type: Signup
-        url: https://apileague.com
+      - type: APIReference
+        url: https://apileague.com/apis/
+      - type: GettingStarted
+        url: https://apileague.com/docs/quick-start/
+      - type: SignUp
+        url: https://apileague.com/console/
+      - type: OpenAPI
+        url: openapi/_original/api-league-openapi.json
+      - type: OpenAPI
+        url: openapi/api-league-books-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-news-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-humor-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-food-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-knowledge-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-games-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-art-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-web-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-text-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-media-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-math-openapi.yml
+      - type: OpenAPI
+        url: openapi/api-league-storage-openapi.yml
+      - type: Authentication
+        url: authentication/api-league-authentication.yml
+      - type: Conventions
+        url: conventions/api-league-conventions.yml
+      - type: ErrorCatalog
+        url: errors/api-league-problem-types.yml
+      - type: DataModel
+        url: data-model/api-league-data-model.yml
+      - type: RateLimits
+        url: rate-limits/api-league-rate-limits.yml
+      - type: Postman
+        url: https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
 common:
+  - type: AgenticAccess
+    url: agentic-access/api-league-agentic-access.yml
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
   - type: DomainSecurity
     url: security/api-league-domain-security.yml
   - type: Website
     url: https://apileague.com
+  - type: DeveloperPortal
+    url: https://apileague.com/apis/
   - type: Documentation
     url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  # 2026-09-02: the previous pointer was https://discord.gg/apileague, which the Discord API
+  # answers with {"message":"Unknown Invite","code":10006} (HTTP 404) — a dead invite that
+  # renders as an HTTP 200 error page. Replaced with the invite the site itself links, whose
+  # inviter resolves to the Discord user `ddsky` (skycraft GmbH).
   - type: Discord
-    url: https://discord.gg/apileague
+    url: https://discord.gg/QudH9DTNzx
+  - type: Support
+    url: https://discord.gg/QudH9DTNzx
+  - type: Blog
+    url: https://apileague.com/articles/
+  - type: Pricing
+    url: https://apileague.com/pricing/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Login
+    url: https://apileague.com/console/
+  - type: TermsOfService
+    url: https://apileague.com/terms/
+  - type: PrivacyPolicy
+    url: https://apileague.com/terms/
+  - type: GitHubOrganization
+    url: https://github.com/ddsky
+  - type: SourceCode
+    url: https://github.com/ddsky/api-league-clients
+  - type: Postman
+    url: https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+  - type: StatusPage
+    url: https://status.apileague.com/
+  - type: Sandbox
+    url: https://apileague.com/playground/
+  - type: Packages
+    url: packages/api-league-packages.yml
+  - type: SDKs
+    url: packages/api-league-packages.yml
+  - type: LLMsTxt
+    url: llms/api-league-llms.txt
+  # NOT WIRED, deliberately: mcp/api-league-mcp.yml and changelog/api-league-changelog.yml both
+  # exist on disk but carry NO common[] pointer, because both record an ABSENCE. API League
+  # ships no MCP server (mcp.apileague.com does not resolve; /mcp is the site catch-all) and
+  # publishes no changelog (/changelog/ is the site catch-all, no GitHub releases or tags). An
+  # `MCPServer` or `ChangeLog` pointer would assert a surface the provider does not serve.
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/api-league-lifecycle.yml
+  - type: Conformance
+    url: conformance/api-league-conformance.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: Overlay
+    url: overlays/api-league-text-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Plans
+    url: plans/api-league-plans-pricing.yml
+  - type: FinOps
+    url: finops/api-league-finops.yml
   - type: Features
     data:
       - name: 60+ APIs
@@ -110,12 +237,19 @@ common:
         description: Add screenshot capture, image search, color detection, and vector search to media workflows.
       - name: Knowledge Products
         description: Embed quotes, trivia, life hacks, affirmations, and riddles into productivity and wellness apps.
-  - type: Integrations
-    url: https://apileague.com/integrations
-  - type: LlmsText
-    url: https://apileague.com/llms.txt
+  # 2026-09-02: REMOVED two pointers confirmed dead on probe. Both returned HTTP 200 with the
+  # site's 21,974-byte catch-all homepage rather than the page they claimed:
+  #   Integrations -> https://apileague.com/integrations  (soft-404, no integrations page exists)
+  #   LlmsText     -> https://apileague.com/llms.txt       (soft-404, HTML not text; see llms/api-league-llms-probe.yml)
+  # A pointer to a page the provider does not serve is a false claim made on their behalf.
 integrations:
   - name: API League
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
+
+x-enrichment:
+  date: '2026-09-02'
+  status: enriched
+  artifacts_added: 46
+  pass: local-v1

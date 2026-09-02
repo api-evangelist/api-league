@@ -1,12 +1,17 @@
-generated: '2026-07-11'
+generated: '2026-09-02'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: apileague.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 16 12:48:20 2026 GMT
+  cert_expires: Nov 14 20:02:43 2026 GMT
   hsts: false
+- host: api.apileague.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 29 09:23:25 2026 GMT
+  hsts: null
 domains:
 - domain: apileague.com
   dnssec: false

@@ -1,0 +1,567 @@
+generated: '2026-09-02'
+method: generated
+source: openapi/api-league-art-openapi.yml, openapi/api-league-books-openapi.yml, openapi/api-league-food-openapi.yml,
+  openapi/api-league-games-openapi.yml, openapi/api-league-humor-openapi.yml, openapi/api-league-knowledge-openapi.yml,
+  openapi/api-league-math-openapi.yml, openapi/api-league-media-openapi.yml, openapi/api-league-news-openapi.yml,
+  openapi/api-league-storage-openapi.yml, openapi/api-league-text-openapi.yml, openapi/api-league-web-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 55
+  by_action_class:
+    connected: 55
+  by_consequence:
+    read: 55
+  human_in_the_loop_required: 0
+operations:
+- path: /retrieve-random-poem
+  method: get
+  operationId: randomPoemAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /convert-image-to-ascii-txt
+  method: get
+  operationId: imageToAsciiArtByURLAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-artworks
+  method: get
+  operationId: artSearchAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-artwork
+  method: get
+  operationId: retrieveArtworkById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-books
+  method: get
+  operationId: searchBooksAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /list-similar-books
+  method: get
+  operationId: findSimilarBooksAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-drinks
+  method: get
+  operationId: searchDrinksAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-recipes
+  method: get
+  operationId: searchRecipesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-recipe
+  method: get
+  operationId: retrieveRecipeInformationAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /compute-nutrition
+  method: get
+  operationId: computeNutritionAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-games
+  method: get
+  operationId: searchGamesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-game
+  method: get
+  operationId: retrieveGameById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /list-similar-games
+  method: get
+  operationId: findSimilarGamesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-jokes
+  method: get
+  operationId: searchJokesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-joke
+  method: get
+  operationId: randomJokeAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-memes
+  method: get
+  operationId: searchMemesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-meme
+  method: get
+  operationId: randomMemeAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-gifs
+  method: get
+  operationId: searchGifsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /generate-nonsense-word
+  method: get
+  operationId: generateNonsenseWordAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-trivia
+  method: get
+  operationId: randomTriviaAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-life-hack
+  method: get
+  operationId: randomLifeHackAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-affirmation
+  method: get
+  operationId: randomAffirmationAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-quote
+  method: get
+  operationId: randomQuoteAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-random-riddle
+  method: get
+  operationId: randomRiddleAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /convert-units
+  method: get
+  operationId: convertUnitsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /take-screenshot
+  method: get
+  operationId: screenshotAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-images
+  method: get
+  operationId: searchRoyaltyFreeImagesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-icons
+  method: get
+  operationId: searchIconsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /rescale-image
+  method: get
+  operationId: rescaleImageAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /detect-color
+  method: get
+  operationId: detectMainImageColorAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-vectors
+  method: get
+  operationId: vectorSearchAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-news
+  method: get
+  operationId: searchNewsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-top-news
+  method: get
+  operationId: topNewsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /extract-news
+  method: get
+  operationId: extractNewsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /read-key-value
+  method: get
+  operationId: readKeyValueFromStoreAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /store-key-value
+  method: get
+  operationId: storeKeyValueGETAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /correct-spelling
+  method: get
+  operationId: correctSpellingAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /detect-language
+  method: get
+  operationId: detectLanguageAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /detect-sentiment
+  method: get
+  operationId: detectSentimentAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /score-text
+  method: get
+  operationId: scoreTextAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /score-readability
+  method: get
+  operationId: scoreReadabilityAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /extract-dates
+  method: get
+  operationId: extractDatesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /detect-gender
+  method: get
+  operationId: detectGenderByNameAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /list-synonyms
+  method: get
+  operationId: listWordSynonymsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tag-pos
+  method: get
+  operationId: tagPartOfSpeechAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stem-text
+  method: get
+  operationId: stemTextAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /singularize-word
+  method: get
+  operationId: singularizeWordAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pluralize-word
+  method: get
+  operationId: pluralizeWordAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /extract-entities
+  method: get
+  operationId: extractEntitiesAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /extract-content
+  method: get
+  operationId: extractContentFromAWebPageAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /extract-publish-date
+  method: get
+  operationId: extractPublishDateAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /extract-authors
+  method: get
+  operationId: extractAuthorsAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /search-web
+  method: get
+  operationId: searchWebAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /retrieve-page-rank
+  method: get
+  operationId: retrievePageRankAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /verify-email
+  method: get
+  operationId: verifyEmailAddressAPI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

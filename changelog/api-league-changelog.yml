@@ -1,0 +1,48 @@
+generated: '2026-09-02'
+method: derived
+source: >-
+  https://registry.npmjs.org/apileague-js (publish timestamps for every version of the
+  first-party JavaScript client), the ddsky/api-league-clients commit log, and
+  openapi/_original/api-league-openapi.json info.version.
+provider: API League
+providerId: api-league
+published_changelog: false
+description: >-
+  API League publishes NO changelog. https://apileague.com/changelog/ returns the site-wide
+  catch-all homepage, the clients repository has no releases and no tags, and there are no
+  release notes anywhere on the site. This artifact is therefore a DERIVED version timeline,
+  reconstructed from the publish dates of the first-party npm client, whose version tracks the
+  OpenAPI `info.version` exactly. It is recorded so the catalog has a dated change record where
+  the provider offers none — NOT as evidence that the provider maintains one. No `ChangeLog`
+  pointer is emitted in apis.yml for the same reason.
+scheme: semver
+current_version: '1.9.0'
+current_version_date: '2025-12-09'
+tracks: OpenAPI info.version == npm apileague-js version (verified equal at 1.9.0)
+entries:
+  - {version: '1.9.0', date: '2025-12-09', highlights: 'Commit message on the same day reads "adding 4 new APIs" — an additive release. Breaking: unknown (no notes published).'}
+  - {version: '1.8.1', date: '2025-07-01', highlights: 'No published notes.'}
+  - {version: '1.7.0', date: '2025-06-19', highlights: 'No published notes.'}
+  - {version: '1.6.4', date: '2025-01-02', highlights: 'No published notes.'}
+  - {version: '1.6.3', date: '2024-08-29', highlights: 'No published notes.'}
+  - {version: '1.6.2', date: '2024-08-29', highlights: 'No published notes.'}
+  - {version: '1.6.1', date: '2024-08-27', highlights: 'No published notes.'}
+  - {version: '1.6.0', date: '2024-08-24', highlights: 'No published notes.'}
+  - {version: '1.5.0', date: '2024-07-18', highlights: 'No published notes.'}
+  - {version: '1.4.2', date: '2024-07-12', highlights: 'No published notes.'}
+  - {version: '1.4.1', date: '2024-07-11', highlights: 'No published notes.'}
+  - {version: '1.4.0', date: '2024-07-10', highlights: 'No published notes.'}
+  - {version: '1.2.0', date: '2024-06-06', highlights: 'No published notes.'}
+  - {version: '1.1.0', date: '2024-05-21', highlights: 'No published notes.'}
+  - {version: '1.0.0', date: '2024-05-21', highlights: 'First public release of the JavaScript client.'}
+gaps:
+  - No breaking-vs-additive classification is possible — the provider publishes no notes for any version.
+  - The timeline only sees changes that produced an npm publish; a server-side change with no client regeneration is invisible.
+  - 1.3.x was never published to npm.
+evidence:
+  - {url: 'https://apileague.com/changelog/', status: 200, note: 'soft-404 catch-all homepage (21,974 bytes)'}
+  - {url: 'https://registry.npmjs.org/apileague-js', status: 200}
+  - {url: 'https://api.github.com/repos/ddsky/api-league-clients/releases', status: 200, note: 'empty — no releases'}
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

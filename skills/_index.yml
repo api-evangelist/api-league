@@ -1,0 +1,83 @@
+generated: '2026-09-02'
+method: generated
+source: openapi/_original/api-league-openapi.json plus conventions/, errors/, rate-limits/ and plans/
+  in this repo
+provider: API League
+providerId: api-league
+description: 'Packaged Agent Skills for the API League platform. Every operationId referenced in every
+  skill was grepped out of the provider''s own OpenAPI — none is invented — and every required/optional
+  parameter split is read from the spec. The skills exist because API League''s runtime semantics are
+  NOT discoverable from the contract alone: the token cost model, the X-API-Quota-* headers, the absence
+  of Retry-After, the separate concurrency ceiling, the one-hour caching restriction in the terms of use,
+  and the fact that storeKeyValueGETAPI writes through an HTTP GET are all facts an agent has to be told.
+
+  api-league-getting-started.md is the prerequisite for the other six.'
+operations_covered: 33
+operations_total: 55
+skills:
+- file: api-league-getting-started.md
+  name: Call an API League endpoint correctly
+  api: openapi/_original/api-league-openapi.json
+  operations:
+  - searchBooksAPI
+  - randomQuoteAPI
+- file: api-league-news-and-content.md
+  name: Research a news topic and extract the article
+  api: openapi/api-league-news-openapi.yml
+  operations:
+  - searchNewsAPI
+  - topNewsAPI
+  - extractNewsAPI
+  - extractAuthorsAPI
+  - extractPublishDateAPI
+- file: api-league-text-analysis.md
+  name: Analyze a body of text
+  api: openapi/api-league-text-openapi.yml
+  operations:
+  - detectLanguageAPI
+  - detectSentimentAPI
+  - extractEntitiesAPI
+  - scoreReadabilityAPI
+  - scoreTextAPI
+  - correctSpellingAPI
+  - listWordSynonymsAPI
+  - tagPartOfSpeechAPI
+  - stemTextAPI
+  - extractDatesAPI
+- file: api-league-recipes-and-nutrition.md
+  name: Find a recipe and compute its nutrition
+  api: openapi/api-league-food-openapi.yml
+  operations:
+  - searchRecipesAPI
+  - retrieveRecipeInformationAPI
+  - computeNutritionAPI
+  - searchDrinksAPI
+- file: api-league-web-extraction.md
+  name: Search the web and extract a page
+  api: openapi/api-league-web-openapi.yml
+  operations:
+  - searchWebAPI
+  - extractContentFromAWebPageAPI
+  - extractAuthorsAPI
+  - extractPublishDateAPI
+  - retrievePageRankAPI
+  - verifyEmailAddressAPI
+- file: api-league-key-value-store.md
+  name: Use the API League key-value store safely
+  api: openapi/api-league-storage-openapi.yml
+  operations:
+  - storeKeyValueGETAPI
+  - readKeyValueFromStoreAPI
+- file: api-league-media-and-images.md
+  name: Search, screenshot and process images
+  api: openapi/api-league-media-openapi.yml
+  operations:
+  - searchRoyaltyFreeImagesAPI
+  - searchIconsAPI
+  - vectorSearchAPI
+  - screenshotAPI
+  - rescaleImageAPI
+  - detectMainImageColorAPI
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com

@@ -1,0 +1,65 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for API League — Text
+  version: 1.0.0
+extends: openapi/api-league-text-openapi.yml
+x-provenance:
+  generated: '2026-09-02'
+  method: generated
+  source: openapi/_original/api-league-openapi.json (verbatim harvest from https://raw.githubusercontent.com/ddsky/api-league-clients/master/apileague-openapi-3.json)
+  note: Enhancements only. The harvested contract is never mutated — this Overlay records what API Evangelist adds
+    on top of it. The provider spec declares no components.schemas and no tags[] block, so the tag description and
+    the runtime-semantics extensions below are additions, not corrections.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/api-league/
+    x-apievangelist-artifacts: https://github.com/api-evangelist/api-league
+    x-provider-operator: skycraft GmbH, Dresden, Germany
+    x-spec-source: https://raw.githubusercontent.com/ddsky/api-league-clients/master/apileague-openapi-3.json
+    x-docs: https://apileague.com/apis/
+- target: $.info
+  update:
+    x-runtime-semantics:
+      auth: API key as ?api-key= query parameter or x-api-key header; prefer the header
+      auth-docs: https://apileague.com/docs/authentication/
+      quota-headers:
+      - X-API-Quota-Request
+      - X-API-Quota-Used
+      - X-API-Quota-Left
+      quota-unit: token
+      quota-reset: midnight UTC
+      quota-exhausted-status: 402
+      throttled-status: 429
+      retry-after-header: false
+      rate-limit-headers: []
+      error-envelope: '{"status","code","message"} as application/json — NOT RFC 9457'
+      pagination:
+        style: offset-limit
+        request:
+        - number
+        - offset
+        response:
+        - total_results
+        - available
+        - number
+        - offset
+      idempotency: na — all operations are GET
+      caching-restriction: Terms of use forbid storing data; max 1 hour cache with written permission (https://apileague.com/terms/)
+- target: $.tags[?(@.name=='Text')]
+  update:
+    description: Text operations on the API League platform (13 of 55). Read-only HTTP GET; see https://apileague.com/apis/
+      for the per-endpoint token cost.
+    externalDocs:
+      description: API League Text endpoints
+      url: https://apileague.com/apis/
+- target: $.servers[0]
+  update:
+    description: API League production host. No version segment — the contract is unversioned in transport.
+- target: $.components.securitySchemes.apiKey
+  update:
+    description: API key in the query string. Documented by the provider, but the weaker of the two transports —
+      keys in URLs are recorded in proxy logs, browser history and referrer headers. Prefer headerApiKey.
+- target: $.components.securitySchemes.headerApiKey
+  update:
+    description: API key in the x-api-key request header. The recommended transport for agents and servers.

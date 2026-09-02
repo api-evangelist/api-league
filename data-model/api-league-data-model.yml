@@ -1,0 +1,113 @@
+generated: '2026-09-02'
+method: derived
+source: >-
+  openapi/_original/api-league-openapi.json — the 200-response schemas of all 55 operations,
+  plus the id-bearing retrieve operations and the id fields returned by their matching search
+  operations.
+provider: API League
+providerId: api-league
+description: >-
+  The entity graph of API League is unusually FLAT, and that flatness is the finding. The
+  OpenAPI declares ZERO components.schemas — every response shape is written inline on its own
+  operation, so nothing is reused across the 55 operations and nothing is named. There is no
+  shared object model, no cross-domain reference, and no foreign key that points from one
+  category to another: a Book cannot reference a Recipe, a Game cannot reference an Artwork.
+
+  What DOES exist is a repeated per-category pattern, present in exactly three of the twelve
+  categories — Books, Games and Art each pair a `search` operation returning objects with an
+  integer `id` against a `retrieve` operation that takes that same id. Those are the only real
+  relationships in the API. Everything else is a stateless transform: text in, result out, no
+  identity, no persistence, nothing to relate.
+
+  Because there are no named schemas, the entity names below are OURS — derived from the
+  response envelope field that carries them — not the provider's. They are labels for reading
+  the graph, not identifiers the API will accept.
+shape:
+  named_schemas: 0
+  components_schemas_reuse: none
+  identified_entities: 4
+  stateless_transform_operations: 40
+  binary_response_operations: 3
+  note: >-
+    `components` in the published spec contains only securitySchemes. Every response is an
+    inline anonymous object, which is why an SDK generated from this spec produces per-operation
+    response classes rather than a domain model.
+entities:
+  - name: Book
+    id_field: id
+    id_type: integer
+    domain: Books
+    produced_by: [searchBooksAPI]
+    retrieved_by: []
+    fields: [id, title, subtitle, image]
+    note: >-
+      Cover images in the published examples are Open Library URLs (covers.openlibrary.org),
+      which points at the upstream data lineage. There is no retrieve-book-by-id operation —
+      findSimilarBooksAPI takes an id and returns more books, so the id is usable as a handle
+      but there is no way to fetch one book's full record.
+  - name: Game
+    id_field: id
+    id_type: integer
+    domain: Games
+    produced_by: [searchGamesAPI, findSimilarGamesAPI]
+    retrieved_by: [retrieveGameById]
+    fields: [id, name, image, gameplay, link, x_url, rating, description, short_description, release_date, developer, playtime]
+  - name: Artwork
+    id_field: id
+    id_type: integer
+    domain: Art
+    produced_by: [artSearchAPI]
+    retrieved_by: [retrieveArtworkById]
+    fields: [id, title, image, start_date, end_date, description]
+  - name: Recipe
+    id_field: id
+    id_type: integer
+    domain: Food
+    produced_by: [searchRecipesAPI]
+    retrieved_by: [retrieveRecipeInformationAPI]
+    fields: [id, title, servings, images, dietary_properties, price_per_serving, times, nutrition, taste, cuisines, meal_types, occasions]
+relationships:
+  - {from: Book, to: Book, kind: has_many, via: id, operation: findSimilarBooksAPI, note: 'similarity edge — an id in, a list of Books out'}
+  - {from: Game, to: Game, kind: has_many, via: id, operation: findSimilarGamesAPI, note: 'similarity edge'}
+  - {from: Game, to: Game, kind: has_one, via: id, operation: retrieveGameById, note: 'search -> retrieve; the only full round trip in Games'}
+  - {from: Artwork, to: Artwork, kind: has_one, via: id, operation: retrieveArtworkById, note: 'search -> retrieve'}
+  - {from: Recipe, to: Recipe, kind: has_one, via: id, operation: retrieveRecipeInformationAPI, note: 'search -> retrieve'}
+  - {from: Recipe, to: Nutrition, kind: has_one, via: embedded, operation: retrieveRecipeInformationAPI, note: 'nutrition is an embedded object on the Recipe, not a separately addressable entity'}
+cross_domain_relationships: []
+cross_domain_note: >-
+  NONE. There is no identifier that crosses a category boundary anywhere in the spec. The
+  twelve categories are twelve unrelated data products behind one host and one key.
+stateless_domains:
+  - {domain: Text, operations: 13, note: 'Pure transforms — spelling, language, sentiment, readability, POS, stemming, singular/plural, synonyms, entities, dates, gender. No identity, no persistence.'}
+  - {domain: Web, operations: 6, note: 'URL in, extraction out — content, publish date, authors, page rank, web search, email verification.'}
+  - {domain: Humor, operations: 6, note: 'Jokes/memes/gifs. searchMemesAPI and searchJokesAPI return arrays with an `available` count but no retrievable id.'}
+  - {domain: Knowledge, operations: 5, note: 'Random-single-item endpoints — trivia, life hack, affirmation, quote, riddle. Nothing addressable.'}
+  - {domain: Media, operations: 6, note: 'Image/icon/vector search plus screenshot, rescale and colour detection.'}
+  - {domain: News, operations: 3, note: 'searchNewsAPI paginates over news objects; extractNewsAPI is a URL transform. No news id is retrievable.'}
+  - {domain: Math, operations: 1}
+paginated_collections:
+  note: >-
+    The offset/limit envelope (total_results | available, number, offset) appears on
+    searchBooksAPI, searchNewsAPI, searchJokesAPI, searchMemesAPI, searchDrinksAPI,
+    searchRecipesAPI, artSearchAPI and searchGamesAPI. searchGamesAPI is the richest — it also
+    returns sorting, sorting_options, filter_options and active_filter_options, i.e. a faceted
+    search response the other endpoints do not have.
+key_value_store:
+  note: >-
+    The Storage domain is the one place API League holds caller state. storeKeyValueGETAPI
+    writes a value against a key (through a GET) and readKeyValueFromStoreAPI reads it back.
+    The key namespace, retention and any size limits are not described in the spec, and there
+    is no delete operation. See the reversibility block in conventions/api-league-conventions.yml.
+binary_responses:
+  note: These three return bytes rather than JSON and are outside the entity graph entirely.
+  operations:
+    - {operation: screenshotAPI, content_type: application/octet-stream}
+    - {operation: rescaleImageAPI, content_type: application/octet-stream}
+    - {operation: imageToAsciiArtByURLAPI, content_type: text/plain}
+cross_links:
+  openapi: openapi/_original/api-league-openapi.json
+  conventions: conventions/api-league-conventions.yml
+  errors: errors/api-league-problem-types.yml
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

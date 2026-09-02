@@ -1,0 +1,92 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://apileague.com/pricing/ (uptime guarantee), https://status.apileague.com/ (status page),
+  https://apileague.com/terms/ (discontinuation and change terms), the version history of
+  npm apileague-js, and derived from openapi/_original/api-league-openapi.json.
+provider: API League
+providerId: api-league
+description: >-
+  API League runs a real status page and states a 99.9% uptime target on every plan including
+  the free one, but publishes no versioning policy, no deprecation policy and no changelog. The
+  contract is unversioned in transport and the terms explicitly reserve the right to withdraw
+  it without notice, so there is no notice period a consumer can plan against.
+versioning:
+  scheme: none-in-transport
+  current: '1.9.0'
+  docs: null
+  detail: >-
+    The base URL https://api.apileague.com/ carries no version segment and no version header or
+    parameter exists. `1.9.0` is the OpenAPI `info.version` and the generated SDK version; it is
+    a build number for the description document, not something a caller can pin a request to.
+  version_history_source: https://registry.npmjs.org/apileague-js
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation policy exists. No `Sunset` or `Deprecation` response header is documented,
+    and no operation in the OpenAPI is marked `deprecated: true`. The terms of use go the other
+    way and say so plainly: "We reserve the right to discontinue the API League or to withdraw
+    your permission to use the API League at any time for any reason without notice." NO
+    `Deprecation` pointer is emitted in apis.yml — there is no policy to point at.
+sla:
+  url: https://apileague.com/pricing/
+  uptime_target: 99.9%
+  applies_to: all plans including Free
+  support_tiers:
+    - {plan: Free, support: Discord only}
+    - {plan: Rookie, support: Discord only}
+    - {plan: Pro, support: Email}
+    - {plan: Champion, support: Scheduled phone}
+  contractual: false
+  note: >-
+    The 99.9% figure is published on the pricing page and restated in the pricing FAQ ("We
+    guarantee 99.9% uptime for all plans"). It is a marketing commitment, not a credit-backed
+    SLA — the terms of use disclaim all warranties and state the service is provided "as is",
+    "with all faults" and "as available", with no service credits defined anywhere.
+status_page: https://status.apileague.com/
+status_page_detail:
+  reachable: true
+  http_status: 200
+  fetched: '2026-09-02'
+  features: [90-day uptime calendar, 24h/7d/30d/90d uptime rollups, incident history, email subscription]
+  incidents_last_7_days: 0
+  note: >-
+    A hosted status page with historical uptime and an email subscribe flow. Linked from the
+    footer of every page on apileague.com as "Uptime Status" (the footer link is http://, which
+    redirects to https).
+changelog:
+  published: false
+  url: null
+  note: >-
+    No changelog page, no release notes, no GitHub releases and no git tags on
+    ddsky/api-league-clients. The only dated change record that exists anywhere is the npm
+    publish history of apileague-js, reconstructed in changelog/api-league-changelog.yml. NO
+    `ChangeLog` pointer is emitted in apis.yml, because the provider publishes none.
+deprecated_operations: []
+operations_total: 55
+surface_stability:
+  note: >-
+    The surface grew rather than shrank in the last observed change: the 2025-12-09 commit to
+    the clients monorepo is titled "adding 4 new APIs", released as apileague-js 1.9.0. Fifteen
+    SDK versions were published between 2024-05-21 and 2025-12-09. Nothing in the record shows
+    an operation being removed, but nothing in the record would tell a consumer if one were.
+roadmap:
+  published: false
+  url: null
+cross_links:
+  conventions: conventions/api-league-conventions.yml
+  changelog: changelog/api-league-changelog.yml
+  plans: plans/api-league-plans-pricing.yml
+evidence:
+  - {url: 'https://status.apileague.com/', status: 200}
+  - {url: 'https://apileague.com/pricing/', status: 200}
+  - {url: 'https://apileague.com/terms/', status: 200}
+  - {url: 'https://apileague.com/changelog/', status: 200, note: 'soft-404 — returns the 21,974-byte catch-all homepage, not a changelog'}
+  - {url: 'https://api.github.com/repos/ddsky/api-league-clients/releases', status: 200, note: 'empty array — no releases'}
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

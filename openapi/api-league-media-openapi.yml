@@ -1,0 +1,581 @@
+openapi: 3.0.0
+info:
+  title: API League — Media
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Media
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /take-screenshot:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: url
+        description: The url of the web page for which a screenshot should be taken.
+        schema:
+          pattern: .
+          maxLength: 1000
+          type: string
+          example: https://nytimes.com
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: width
+        description: The desired width of the screenshot.
+        schema:
+          format: int32
+          minimum: 100
+          maximum: 1000
+          type: integer
+          example: 400
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: height
+        description: The desired height of the screenshot.
+        schema:
+          format: int32
+          minimum: 100
+          maximum: 1000
+          type: integer
+          example: 300
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/take-screenshot-api/
+      summary: Screenshot API
+      tags:
+      - Media
+      description: Take a screenshot of a web page by providing the URL. IP blocks, captchas, location
+        restrictions etc. will be resolved in the process. The screenshot will be returned as an image.
+      operationId: screenshotAPI
+      deprecated: false
+  /search-images:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          nullable: true
+                        thumbnail:
+                          type: string
+                          nullable: true
+                        width:
+                          type: integer
+                        height:
+                          type: integer
+                        license:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              nullable: true
+                            link:
+                              type: string
+                              nullable: true
+                        id:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    images:
+                    - url: https://images.unsplash.com/photo-1529472119196-cb724127a98e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NTgyNnwwfDF8c2VhcmNofDF8fGRvZ3N8ZW58MHx8fHwxNzA4MjkyMjA0fDA&ixlib=rb-4.0.3&q=80&w=1080
+                      thumbnail: https://images.unsplash.com/photo-1529472119196-cb724127a98e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NTgyNnwwfDF8c2VhcmNofDF8fGRvZ3N8ZW58MHx8fHwxNzA4MjkyMjA0fDA&ixlib=rb-4.0.3&q=80&w=200
+                      width: 2303
+                      height: 3594
+                      license:
+                        name: FREE
+                        link: https://unsplash.com/license
+                      id: U6nlG0Y5sfs
+                    - url: https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NTgyNnwwfDF8c2VhcmNofDJ8fGRvZ3N8ZW58MHx8fHwxNzA4MjkyMjA0fDA&ixlib=rb-4.0.3&q=80&w=1080
+                      thumbnail: https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NTgyNnwwfDF8c2VhcmNofDJ8fGRvZ3N8ZW58MHx8fHwxNzA4MjkyMjA0fDA&ixlib=rb-4.0.3&q=80&w=200
+                      width: 2694
+                      height: 4033
+                      license:
+                        name: FREE
+                        link: https://unsplash.com/license
+                      id: BJaqPaH6AGQ
+                    - url: https://images.unsplash.com/photo-1568572933382-74d440642117?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NTgyNnwwfDF8c2VhcmNofDN8fGRvZ3N8ZW58MHx8fHwxNzA4MjkyMjA0fDA&ixlib=rb-4.0.3&q=80&w=1080
+                      thumbnail: https://images.unsplash.com/photo-1568572933382-74d440642117?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NTgyNnwwfDF8c2VhcmNofDN8fGRvZ3N8ZW58MHx8fHwxNzA4MjkyMjA0fDA&ixlib=rb-4.0.3&q=80&w=200
+                      width: 3024
+                      height: 4032
+                      license:
+                        name: FREE
+                        link: https://unsplash.com/license
+                      id: v0_MCllHY9M
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: query
+        description: The search query.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: dogs
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of images to return in range [1,100]
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 100
+          type: integer
+          example: 3
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/search-images-api/
+      summary: Search Royalty Free Images API
+      tags:
+      - Media
+      description: Search through hundreds of thousands of royalty free images to match any topic you
+        want. The images are returned in a list with the URL, width, and height of the image. Additionally,
+        you can find the license type and link of the image.
+      operationId: searchRoyaltyFreeImagesAPI
+      deprecated: false
+  /search-icons:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  icons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          nullable: true
+                        url:
+                          type: string
+                          nullable: true
+                        thumbnail:
+                          type: string
+                          nullable: true
+                        width:
+                          type: integer
+                        height:
+                          type: integer
+                        license:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              nullable: true
+                            link:
+                              type: string
+                              nullable: true
+              examples:
+                Response:
+                  value:
+                    icons:
+                    - id: '4435839'
+                      url: https://static.thenounproject.com/png/4435839-200.png
+                      thumbnail: https://static.thenounproject.com/png/4435839-200.png
+                      width: 200
+                      height: 200
+                      license:
+                        name: PUBLIC_DOMAIN
+                        link: public-domain
+                    - id: '4256398'
+                      url: https://static.thenounproject.com/png/4256398-200.png
+                      thumbnail: https://static.thenounproject.com/png/4256398-200.png
+                      width: 200
+                      height: 200
+                      license:
+                        name: PUBLIC_DOMAIN
+                        link: public-domain
+                    - id: '3675912'
+                      url: https://static.thenounproject.com/png/3675912-200.png
+                      thumbnail: https://static.thenounproject.com/png/3675912-200.png
+                      width: 200
+                      height: 200
+                      license:
+                        name: PUBLIC_DOMAIN
+                        link: public-domain
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: query
+        description: The search query.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: cars
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: only-public-domain
+        description: If true, only public domain icons will be returned.
+        schema:
+          type: boolean
+          example: true
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of icons to return in range [1,100]
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 100
+          type: integer
+          example: 3
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/search-icons-api/
+      summary: Search Icons API
+      tags:
+      - Media
+      description: Search through millions of icons to match any topic you want.
+      operationId: searchIconsAPI
+      deprecated: false
+  /rescale-image:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: url
+        description: The url of the image to be rescaled.
+        schema:
+          pattern: .
+          maxLength: 1000
+          type: string
+          example: 'https://fastly.picsum.photos/id/63/5000/2813.jpg?hmac=HvaeSK6WT-G9bYF_CyB2m1ARQirL8UMnygdU9W6PDvM '
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: width
+        description: The desired width of the rescaled image.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 5000
+          type: integer
+          example: 200
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: height
+        description: The desired height of the rescaled image.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 5000
+          type: integer
+          example: 200
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: crop
+        description: Whether the image should be cropped. If true, the returned image will have exactly
+          the given width and height and some content might have been cropped from the left/right or top/bottom.
+          If this parameter is false, the image will keep its ratio but will be resized to fill the given
+          box. Some content might be outside the box though.
+        schema:
+          type: boolean
+          example: true
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/rescale-image-api/
+      summary: Rescale Image API
+      tags:
+      - Media
+      description: Rescale an image to a specific width and height. The image will be resized to fit the
+        specified width and height while maintaining the original aspect ratio unless the crop parameter
+        is set to true. The image will be returned in the same format as the original image.
+      operationId: rescaleImageAPI
+      deprecated: false
+  /detect-color:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    hex_code:
+                      type: string
+                      nullable: true
+                    specific_color:
+                      type: string
+                      nullable: true
+                    main_color:
+                      type: string
+                      nullable: true
+              examples:
+                Response:
+                  value:
+                  - hex_code: '#b01c20'
+                    specific_color: Firebrick
+                    main_color: Red
+                  - hex_code: '#bfaf9a'
+                    specific_color: Thistle Green
+                    main_color: Green
+                  - hex_code: '#36180d'
+                    specific_color: Brown Pod
+                    main_color: Brown
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: url
+        description: The url of the image for which the colors should be detected.
+        schema:
+          pattern: .
+          maxLength: 1000
+          type: string
+          example: 'https://fastly.picsum.photos/id/63/5000/2813.jpg?hmac=HvaeSK6WT-G9bYF_CyB2m1ARQirL8UMnygdU9W6PDvM '
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/detect-main-image-color-api/
+      summary: Detect Main Image Color API
+      tags:
+      - Media
+      description: 'Detect the main color of an image. The API returns a list of colors and their hex
+        codes. The API supports images in the following formats: JPEG, PNG, and GIF.'
+      operationId: detectMainImageColorAPI
+      deprecated: false
+  /search-vectors:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  vectors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          nullable: true
+                        license:
+                          type: string
+                          nullable: true
+                        author:
+                          type: string
+                          nullable: true
+                        image_url:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    vectors:
+                    - title: Airplanes
+                      license: ATTRIBUTION
+                      author: Candy Design
+                      image_url: https://img.apileague.com/icons/10507904.svg
+                    - title: Model Airplanes
+                      license: ATTRIBUTION
+                      author: Juicy Fish
+                      image_url: https://img.apileague.com/icons/10427558.svg
+                    - title: Paper Airplanes
+                      license: ATTRIBUTION
+                      author: HideMaru
+                      image_url: https://img.apileague.com/icons/9051410.svg
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: query
+        description: The search query.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: airplanes
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: offset
+        description: The number of vectors to skip, between 0 and 1000
+        schema:
+          format: int32
+          minimum: 0
+          maximum: 1000
+          type: integer
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of vectors to return in range [1,10]
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 100
+          type: integer
+          example: 3
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/vector-search-api/
+      summary: Vector Search API
+      tags:
+      - Media
+      description: Search through over 700,000 free to use vector icons. The license is either "PUBLIC_DOMAIN"
+        or "ATTRIBUTION". If it is "ATTRIBUTION" just attribute the author somewhere in your project.
+      operationId: vectorSearchAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

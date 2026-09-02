@@ -1,0 +1,1191 @@
+openapi: 3.0.0
+info:
+  title: API League — Games
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Games
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /search-games:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sorting:
+                    type: object
+                    properties: {}
+                  active_filter_options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                          nullable: true
+                        connection:
+                          type: string
+                          nullable: true
+                        values:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              match:
+                                type: string
+                                nullable: true
+                              value:
+                                type: string
+                                nullable: true
+                  query:
+                    type: string
+                    nullable: true
+                  total_results:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        year:
+                          type: integer
+                        name:
+                          type: string
+                          nullable: true
+                        genre:
+                          type: string
+                          nullable: true
+                        image:
+                          type: string
+                          nullable: true
+                        link:
+                          type: string
+                          nullable: true
+                        rating:
+                          type: object
+                          properties:
+                            mean:
+                              type: number
+                            count:
+                              type: integer
+                        adult_only:
+                          type: boolean
+                        screenshots:
+                          type: array
+                          items:
+                            type: string
+                            nullable: true
+                        micro_trailer:
+                          type: string
+                          nullable: true
+                        gameplay:
+                          type: string
+                          nullable: true
+                        short_description:
+                          type: string
+                          nullable: true
+                        platforms:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                nullable: true
+                              name:
+                                type: string
+                                nullable: true
+                  filter_options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          nullable: true
+                        key:
+                          type: string
+                          nullable: true
+                        values:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                nullable: true
+                              key:
+                                type: string
+                                nullable: true
+                              count:
+                                type: integer
+                        filter_type:
+                          type: string
+                          nullable: true
+                        filter_connection:
+                          type: string
+                          nullable: true
+                  sorting_options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          nullable: true
+                        sort:
+                          type: string
+                          nullable: true
+                        key:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    sorting: {}
+                    active_filter_options:
+                    - key: genre
+                      connection: AND
+                      values:
+                      - match: strateg
+                        value: strategy
+                    query: medieval strategy games
+                    total_results: 395
+                    limit: 48
+                    offset: 0
+                    results:
+                    - id: 64591
+                      year: 2006
+                      name: 'Medieval II: Total War'
+                      genre: Tactical Turn-based Strategy
+                      image: https://img.apileague.com/games/549/medieval_ii_total_war_thecreativeassembly_2006_1.jpg
+                      link: https://gamebrain.co/game/medieval-2-total-war
+                      rating:
+                        mean: 0.9443982348415567
+                        count: 12782
+                      adult_only: false
+                      screenshots:
+                      - https://img.apileague.com/games/601/medieval_ii_total_war_thecreativeassembly_2006_23.jpg
+                      - https://img.apileague.com/games/603/medieval_ii_total_war_thecreativeassembly_2006_25.jpg
+                      - https://img.apileague.com/games/600/medieval_ii_total_war_thecreativeassembly_2006_22.jpg
+                      - https://img.apileague.com/games/607/medieval_ii_total_war_thecreativeassembly_2006_47.jpg
+                      - https://img.apileague.com/games/603/medieval_ii_total_war_thecreativeassembly_2006_16.jpg
+                      micro_trailer: https://cdn.akamai.steamstatic.com/steam/apps/256736340/microtrailer.webm
+                      gameplay: https://www.youtube-nocookie.com/embed/PFZhh9p22Iw
+                      short_description: '"Medieval II: Total War" is a real-time strategy game, offering
+                        both single-player and multiplayer options. Players command armies, expand reigns,
+                        and conquer cities across the Western and Middle Eastern world from 1080-1530
+                        AD. The game features dynamic battles with thousands of troops, emphasizing warfare,
+                        religion, and politics during the Middle Ages'' most turbulent era, including
+                        the Crusades, gunpowder''s rise, and the discovery of the Americas.'
+                      platforms:
+                      - value: pc
+                        name: PC
+                      - value: windows
+                        name: Windows
+                      - value: linux
+                        name: Linux
+                      - value: mac_os
+                        name: Mac OS
+                    - id: 313424
+                      year: 2021
+                      name: Medieval Dynasty
+                      genre: Survival Role Playing
+                      image: https://img.apileague.com/games/68/medieval_dynasty_rendercube_2020_3.jpg
+                      link: https://gamebrain.co/game/medieval-dynasty
+                      rating:
+                        mean: 0.8146983181818181
+                        count: 36527
+                      adult_only: false
+                      screenshots:
+                      - https://img.apileague.com/games/177/medieval_dynasty_rendercube_2021_483.jpg
+                      - https://img.apileague.com/games/119/medieval_dynasty_rendercube_2021_32.jpg
+                      - https://img.apileague.com/games/128/medieval_dynasty_rendercube_2021_77.jpg
+                      micro_trailer: https://cdn.akamai.steamstatic.com/steam/apps/256922139/microtrailer.webm
+                      gameplay: https://www.youtube-nocookie.com/embed/Chxm1RZf0uE
+                      short_description: Medieval Dynasty is a single-player and multiplayer role-playing
+                        game set in the early Middle Ages. As a penniless refugee, you'll hunt, gather
+                        resources, and craft your way to becoming a leader and founder of a prosperous
+                        dynasty. With stunning visuals, phenomenal music, and a challenging environment,
+                        this game offers a unique and immersive gameplay experience.
+                      arcadia: false
+                      platforms:
+                      - value: pc
+                        name: PC
+                      - value: xbox
+                        name: Xbox
+                      - value: xbox_series_xs
+                        name: Xbox Series X|S
+                      - value: playstation_5
+                        name: Playstation 5
+                      - value: playstation_4
+                        name: Playstation 4
+                      - value: windows
+                        name: Windows
+                      - value: playstation
+                        name: Playstation
+                      - value: x_box_game_pass
+                        name: Xbox Game Pass
+                      - value: cloud_platform
+                        name: Cloud Platform
+                      - value: xbox_one
+                        name: Xbox One
+                      - value: x_box_cloud_gaming
+                        name: Xbox Cloud Gaming
+                    - id: 622788
+                      year: 2006
+                      name: 'Total War: MEDIEVAL II'
+                      genre: Casual Strategy
+                      image: https://img.apileague.com/games/879/total_war_medieval_ii_creativeassembly_2006_1.jpg
+                      link: https://gamebrain.co/game/total-war-medieval-2
+                      rating:
+                        mean: 0.958449
+                        count: 14753
+                      adult_only: false
+                      screenshots:
+                      - https://img.apileague.com/games/883/total_war_medieval_ii_creativeassembly_2006_5.jpg
+                      - https://img.apileague.com/games/885/total_war_medieval_ii_creativeassembly_2006_7.jpg
+                      - https://img.apileague.com/games/887/total_war_medieval_ii_creativeassembly_2006_9.jpg
+                      micro_trailer: https://video.akamai.steamstatic.com/store_trailers/256736340/microtrailer.webm
+                      gameplay: https://video.akamai.steamstatic.com/store_trailers/256736340/microtrailer.webm
+                      short_description: 'Total War: MEDIEVAL II – Definitive Edition is a strategy game
+                        that allows you to command massive armies and expand your reign across the Medieval
+                        world. This definitive edition includes all DLC and feature updates since the
+                        game’s release, as well as four new campaigns centered on expanded maps of the
+                        British Isles, Teutonic Northern Europe, the Middle East, and the Americas. With
+                        hundreds of hours of gameplay and content, you can direct battles with up to 10,000
+                        troops and lead some of the greatest nations of the Western and Middle Eastern
+                        world during a turbulent era.'
+                      arcadia: false
+                      platforms:
+                      - value: pc
+                        name: PC
+                      - value: phone
+                        name: Phone
+                      - value: tablet
+                        name: Tablet
+                      - value: windows
+                        name: Windows
+                      - value: mobile_platform
+                        name: Mobile
+                      - value: cloud_platform
+                        name: Cloud Platform
+                      - value: mac_os
+                        name: Mac OS
+                      - value: android
+                        name: Android
+                    filter_options:
+                    - name: Review Rating
+                      key: review_rating
+                      values:
+                      - name: Brilliant (95+)
+                        key: brilliant
+                        count: 2
+                      - name: Amazing (90+)
+                        key: amazing
+                        count: 4
+                      - name: Great (80+)
+                        key: great
+                        count: 9
+                      - name: Good (70+)
+                        key: good
+                        count: 12
+                      filter_type: COLLECTION
+                      filter_connection: XOR
+                    - name: Release Date
+                      key: release_date
+                      values:
+                      - name: Last Month
+                        key: last_month
+                        count: 2
+                      - name: Last Year
+                        key: last_year
+                        count: 9
+                      - name: Last 5 Years
+                        key: last_5_years
+                        count: 32
+                      filter_type: COLLECTION
+                      filter_connection: XOR
+                    - name: Platform
+                      key: platform
+                      values:
+                      - name: Android
+                        key: android
+                        count: 12
+                      - name: Cloud Platform
+                        key: cloud_platform
+                        count: 1
+                      - name: iOS
+                        key: ios
+                        count: 16
+                      - name: iPad
+                        key: ipad
+                        count: 16
+                      - name: Linux
+                        key: linux
+                        count: 6
+                      - name: Mac OS
+                        key: mac_os
+                        count: 10
+                      - name: Mobile Phone
+                        key: mobile_platform
+                        count: 28
+                      - name: Nintendo Switch
+                        key: nintendo_switch
+                        count: 1
+                      - name: PC
+                        key: pc
+                        count: 28
+                      - name: Phone
+                        key: phone
+                        count: 28
+                      - name: Tablet
+                        key: tablet
+                        count: 24
+                      - name: Browser
+                        key: web_browser
+                        count: 8
+                      - name: Windows
+                        key: windows
+                        count: 36
+                      - name: XBox One
+                        key: xbox_one
+                        count: 1
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Genre
+                      key: genre
+                      values:
+                      - name: 4X
+                        key: 4x
+                        count: 4
+                      - name: Action
+                        key: action
+                        count: 12
+                      - name: Card Game
+                        key: card_game
+                        count: 2
+                      - name: Casual
+                        key: casual
+                        count: 12
+                      - name: City Builder
+                        key: city_builder
+                        count: 1
+                      - name: Hack and Slash
+                        key: hack_and_slash
+                        count: 1
+                      - name: Management
+                        key: management
+                        count: 2
+                      - name: Musical
+                        key: musical
+                        count: 1
+                      - name: Real Time Strategy
+                        key: real_time_strategy
+                        count: 9
+                      - name: Role Playing
+                        key: role_playing
+                        count: 1
+                      - name: Sandbox
+                        key: sandbox
+                        count: 1
+                      - name: Simulation
+                        key: simulation
+                        count: 16
+                      - name: Strategy
+                        key: strategy
+                        count: 70
+                      - name: Survival
+                        key: survival
+                        count: 2
+                      - name: Tactical
+                        key: tactical
+                        count: 8
+                      - name: Turn Based Strategy
+                        key: turn_based_strategy
+                        count: 11
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Theme
+                      key: theme
+                      values:
+                      - name: Fantasy
+                        key: fantasy
+                        count: 6
+                      - name: Historical
+                        key: historical
+                        count: 12
+                      - name: Warfare
+                        key: warfare
+                        count: 4
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Play Mode
+                      key: play_mode
+                      values:
+                      - name: Co-Op
+                        key: co_op
+                        count: 2
+                      - name: Local Multi-Player
+                        key: local_multiplayer
+                        count: 1
+                      - name: Multi-Player
+                        key: multiplayer
+                        count: 14
+                      - name: PvP
+                        key: pvp
+                        count: 4
+                      - name: Single-Player
+                        key: single_player
+                        count: 68
+                      - name: Split Screen
+                        key: splitscreen
+                        count: 1
+                      - name: 2-Players
+                        key: two_players
+                        count: 5
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Age Rating
+                      key: content_rating_normalized
+                      values:
+                      - name: Teenager
+                        key: age_rating_teens
+                        count: 13
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Input Mode
+                      key: input_mode
+                      values:
+                      - name: Controller
+                        key: controller
+                        count: 31
+                      - name: Mouse and Keyboard
+                        key: mouse_and_keyboard
+                        count: 47
+                      - name: Touch
+                        key: touch
+                        count: 28
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Price
+                      key: price
+                      values:
+                      - name: Free
+                        key: free
+                        count: 3
+                      - name: under $5
+                        key: under_5
+                        count: 16
+                      - name: under $15
+                        key: under_15
+                        count: 25
+                      - name: under $25
+                        key: under_25
+                        count: 28
+                      - name: under $40
+                        key: under_40
+                        count: 28
+                      filter_type: COLLECTION
+                      filter_connection: XOR
+                    - name: Tag
+                      key: tag
+                      values:
+                      - name: Play Now
+                        key: arcade_enabled
+                        count: 4
+                      - name: Early Access
+                        key: early_access
+                        count: 2
+                      - name: Free to Play
+                        key: free_to_play
+                        count: 3
+                      - name: Indie
+                        key: indie
+                        count: 33
+                      filter_type: COLLECTION
+                      filter_connection: OR
+                    - name: Important
+                      key: feature
+                      values:
+                      - name: Free
+                        key: free
+                        count: 3
+                      - name: 50h+ playtime
+                        key: 50h_playtime
+                        count: 4
+                      - name: Great Story
+                        key: great_story
+                        count: 2
+                      - name: Beautiful Graphics
+                        key: beautiful_graphics
+                        count: 3
+                      - name: Hilarious
+                        key: hilarious
+                        count: 5
+                      - name: Good Gameplay
+                        key: good_gameplay
+                        count: 5
+                      - name: Emotional
+                        key: emotional
+                        count: 2
+                      - name: Wonderful Music
+                        key: wonderful_music
+                        count: 4
+                      - name: High Replayability
+                        key: high_replayability
+                        count: 2
+                      filter_type: COLLECTION
+                      filter_connection: AND
+                    sorting_options:
+                    - name: Rating
+                      sort: DESC
+                      key: computed_rating
+                    - name: Price
+                      sort: ASC
+                      key: price
+                    - name: Release Date
+                      sort: DESC
+                      key: release_date
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: query
+        description: The search query.
+        schema:
+          pattern: .
+          maxLength: 100
+          type: string
+          example: strategy games
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: offset
+        description: Pagination offset (start index) between 0 and 1000.
+        schema:
+          format: int32
+          minimum: 0
+          maximum: 1000
+          type: integer
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: limit
+        description: Number of results to return between 1 and 100.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 100
+          type: integer
+          example: 10
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: filters
+        description: JSON array of filters
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: '[]'
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: sort
+        description: Field to sort by
+        schema:
+          pattern: .
+          maxLength: 50
+          type: string
+          example: rating
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: sort-order
+        description: Sort order (asc or desc)
+        schema:
+          pattern: .
+          maxLength: 4
+          type: string
+          example: asc
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: generate-filter-options
+        description: Whether to generate filter options
+        schema:
+          type: boolean
+          example: true
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/search-games-api/
+      summary: Search Games API
+      tags:
+      - Games
+      description: Search through a vast database of over half a million video games from more than 50
+        platforms. This API allows you to find games based on various criteria such as genre, platform,
+        release date, and more. The results include detailed information about each game, including ratings,
+        descriptions, and images.
+      operationId: searchGamesAPI
+      deprecated: false
+  /retrieve-game:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                    nullable: true
+                  image:
+                    type: string
+                    nullable: true
+                  gameplay:
+                    type: string
+                    nullable: true
+                  link:
+                    type: string
+                    nullable: true
+                  x_url:
+                    type: string
+                    nullable: true
+                  rating:
+                    type: object
+                    properties:
+                      mean:
+                        type: number
+                      count:
+                        type: integer
+                      mean_players:
+                        type: number
+                      count_players:
+                        type: integer
+                      mean_critics:
+                        type: number
+                      count_critics:
+                        type: integer
+                  description:
+                    type: string
+                    nullable: true
+                  short_description:
+                    type: string
+                    nullable: true
+                  release_date:
+                    type: string
+                    nullable: true
+                  developer:
+                    type: string
+                    nullable: true
+                  playtime:
+                    type: object
+                    properties:
+                      percentiles:
+                        type: array
+                        items:
+                          type: number
+                      min:
+                        type: integer
+                      median:
+                        type: integer
+                      max:
+                        type: integer
+                      mean:
+                        type: number
+                      mentions:
+                        type: integer
+                  platforms:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                          nullable: true
+                        name:
+                          type: string
+                          nullable: true
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                      nullable: true
+                  genres:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                          nullable: true
+                        name:
+                          type: string
+                          nullable: true
+                  genre:
+                    type: string
+                    nullable: true
+                  themes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                          nullable: true
+                        name:
+                          type: string
+                          nullable: true
+                  adult_only:
+                    type: boolean
+                  play_modes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                          nullable: true
+                        name:
+                          type: string
+                          nullable: true
+                  screenshots:
+                    type: array
+                    items:
+                      type: string
+                      nullable: true
+                  videos:
+                    type: array
+                    items:
+                      type: string
+                      nullable: true
+                  offers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        price:
+                          type: object
+                          properties:
+                            currency:
+                              type: string
+                              nullable: true
+                            discount_percent:
+                              type: integer
+                            value:
+                              type: number
+                            initial:
+                              type: number
+                        store_name:
+                          type: string
+                          nullable: true
+                        platform:
+                          type: string
+                          nullable: true
+                        title:
+                          type: string
+                          nullable: true
+                        url:
+                          type: string
+                          nullable: true
+                  official_stores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        source:
+                          type: string
+                          nullable: true
+                        url:
+                          type: string
+                          nullable: true
+                  micro_trailer:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    id: 1273796
+                    name: 'Kingdom Come: Deliverance II'
+                    image: https://img.apileague.com/games/487/kingdom_come_deliverance_2_warhorse_2025_3.jpg
+                    gameplay: https://www.youtube-nocookie.com/embed/P5J0WKAXIVE
+                    link: https://gamebrain.co/game/kingdom-come-deliverance-2
+                    x_url: https://x.com/kingdomcomerpg?lang=en
+                    rating:
+                      mean: 0.906146
+                      count: 83662
+                      mean_players: 0.93786
+                      count_players: 83622
+                      mean_critics: 0.84321
+                      count_critics: 40
+                    description: 'Kingdom Come: Deliverance II Collector’s Edition
+
+                      This is the ultimate in Kingdom Come: Deliverance II goodness. You’ll get everything
+                      that’s found in the Gold Edition – the standard edition, Expansion Pass and Gallant
+                      Huntsman’s Kit plus the Lion''s Crest Bonus Quest. What’s more, you’ll also get
+                      a statue of Henry and his trusty steed, Pebbles; the exclusive cloth map Alleys
+                      of Kuttenberg; the enamel pin set Coats of Valor; the iconic Letter of Hope - which
+                      Sir Hans Capon was entrusted with; and the King’s Rebels collectable cards set.'
+                    short_description: '"Kingdom Come: Deliverance II" is a medieval Action RPG where
+                      you play as Henry, a young man seeking revenge for his parents'' murder. Explore
+                      an open world with historically accurate settings, engage in realistic combat, and
+                      make choices that impact He len''s story through five hours of cinematics. Forge
+                      alliances and confront formidable foes in this thrilling saga.'
+                    release_date: '2025-02-04'
+                    developer: Warhorse Studios
+                    playtime:
+                      percentiles:
+                      - 3
+                      - 5
+                      - 8
+                      - 10
+                      - 14
+                      - 20
+                      - 30
+                      - 42
+                      - 80
+                      - 1900
+                      min: 1
+                      median: 17
+                      max: 1900
+                      mean: 44.672515
+                      mentions: 342
+                    platforms:
+                    - value: pc
+                      name: PC
+                    - value: xbox
+                      name: XBox
+                    - value: xbox_series_xs
+                      name: Xbox Series X|S
+                    - value: playstation_5
+                      name: Playstation 5
+                    - value: windows
+                      name: Windows
+                    - value: playstation
+                      name: Playstation
+                    - value: x_box_game_pass
+                      name: Xbox Game Pass
+                    - value: cloud_platform
+                      name: Cloud Platform
+                    - value: x_box_cloud_gaming
+                      name: Xbox Cloud Gaming
+                    tags: []
+                    genres:
+                    - value: open_world
+                      name: Open World
+                    - value: role_playing
+                      name: Role Playing
+                    - value: simulation
+                      name: Simulation
+                    - value: action
+                      name: Action
+                    - value: adventure
+                      name: Adventure
+                    genre: Open World Role Playing
+                    themes:
+                    - value: historical
+                      name: Historical
+                    adult_only: true
+                    play_modes:
+                    - value: single_player
+                      name: Single-Player
+                    screenshots:
+                    - https://img.apileague.com/games/594/kingdom_come_deliverance_2_warhorse_2025_716.jpg
+                    - https://img.apileague.com/games/487/kingdom_come_deliverance_2_warhorse_2025_3.jpg
+                    - https://img.apileague.com/games/593/kingdom_come_deliverance_2_warhorse_2025_715.jpg
+                    - https://img.apileague.com/games/595/kingdom_come_deliverance_2_warhorse_2025_717.jpg
+                    - https://img.apileague.com/games/488/kingdom_come_deliverance_2_warhorse_2025_4.jpg
+                    videos:
+                    - https://cdn.akamai.steamstatic.com/steam/apps/257029338/movie480_vp9.webm
+                    - https://www.youtube-nocookie.com/embed/P5J0WKAXIVE
+                    - https://youtube-nocookie.com/embed/wMZFM6JC47Q?si=0kmOIcWijUoMB1s4
+                    - https://video.akamai.steamstatic.com/store_trailers/257091860/movie480_vp9.webm
+                    - https://video.akamai.steamstatic.com/store_trailers/257029340/movie480_vp9.webm
+                    - https://www.youtube-nocookie.com/embed/q_WvHhlDRJ0
+                    - https://video.akamai.steamstatic.com/store_trailers/257089859/movie480_vp9.webm
+                    - https://video.akamai.steamstatic.com/store_trailers/257015314/movie480_vp9.webm
+                    - https://cdn.akamai.steamstatic.com/steam/apps/257015290/movie480_vp9.webm
+                    - https://video.akamai.steamstatic.com/store_trailers/257078265/movie480_vp9.webm
+                    - https://www.youtube-nocookie.com/embed/j0p-DTyQ0Jw
+                    - https://video.akamai.steamstatic.com/store_trailers/257047501/movie480_vp9.webm
+                    offers:
+                    - price:
+                        currency: USD
+                        discount_percent: 0
+                        value: 59.99
+                        initial: 59.99
+                      store_name: steam
+                      platform: PC
+                      title: 'Kingdom Come: Deliverance II'
+                      url: https://store.steampowered.com/app/1771300
+                    official_stores:
+                    - source: steam
+                      url: https://store.steampowered.com/app/1771300
+                    - source: xbox
+                      url: https://www.xbox.com/en-US/play/games/XXX/9N4W31HSMVVD
+                    micro_trailer: https://cdn.akamai.steamstatic.com/steam/apps/257029338/microtrailer.webm
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: id
+        description: The id of the game.
+        schema:
+          format: int32
+          type: integer
+          example: 1273796
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/retrieve-game-api/
+      summary: Retrieve Game by Id
+      tags:
+      - Games
+      description: This API allows you to retrieve detailed information about a specific game by its unique
+        identifier. Game details include the game's name, description, release date, developer, platforms,
+        genres, tags, ratings, screenshots, videos, and more.
+      operationId: retrieveGameById
+      deprecated: false
+  /list-similar-games:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        year:
+                          type: integer
+                        name:
+                          type: string
+                          nullable: true
+                        genre:
+                          type: string
+                          nullable: true
+                        image:
+                          type: string
+                          nullable: true
+                        link:
+                          type: string
+                          nullable: true
+                        rating:
+                          type: object
+                          properties:
+                            mean:
+                              type: number
+                            count:
+                              type: integer
+                        adult_only:
+                          type: boolean
+                        screenshots:
+                          type: array
+                          items:
+                            type: string
+                            nullable: true
+                        micro_trailer:
+                          type: string
+                          nullable: true
+                        gameplay:
+                          type: string
+                          nullable: true
+                        short_description:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    results:
+                    - id: 191843
+                      year: 2017
+                      name: Assassin's Creed Origins
+                      genre: Open World Role Playing
+                      image: https://img.apileague.com/games/127/assassins_creed_origins_ubisoftmontreal_2017_22.jpg
+                      link: https://gamebrain.co/game/assassins-creed-origins
+                      rating:
+                        mean: 0.8360645
+                        count: 59111
+                      adult_only: true
+                      screenshots:
+                      - https://img.apileague.com/games/136/assassins_creed_origins_ubisoftmontreal_2017_67.jpg
+                      - https://img.apileague.com/games/135/assassins_creed_origins_ubisoftmontreal_2017_39.jpg
+                      - https://img.apileague.com/games/131/assassins_creed_origins_ubisoftmontreal_2017_35.jpg
+                      - https://img.apileague.com/games/133/assassins_creed_origins_ubisoftmontreal_2017_55.jpg
+                      micro_trailer: https://video.akamai.steamstatic.com/store_trailers/256699360/microtrailer.webm
+                      gameplay: https://www.youtube-nocookie.com/embed/3w-3qINOSMY
+                      short_description: Assassin's Creed Origins is a single-player historical open-world
+                        game set in ancient Egypt, boasting stellar story, mechanics, graphics, and soundtrack.
+                        The Gold Edition includes two major expansions, the Deluxe Pack, and the Season
+                        Pass. Explore a country full of mystery, pyramids, and dangers, while uncovering
+                        the origins of the Assassin's Brotherhood. However, be prepared for grinding,
+                        bugs, and some ads, while enjoying the stunning atmosphere and emotional narrative.
+                    - id: 267893
+                      year: 2020
+                      name: Assassin's Creed Valhalla
+                      genre: Open World Role Playing
+                      image: https://img.apileague.com/games/282/assassins_creed_valhalla_ubisoft_2022_3.jpg
+                      link: https://gamebrain.co/game/assassins-creed-valhalla
+                      rating:
+                        mean: 0.685674
+                        count: 18414
+                      adult_only: true
+                      screenshots:
+                      - https://img.apileague.com/games/149/assassins_creed_valhalla_ubisoftmontreal_2022_4.jpg
+                      - https://img.apileague.com/games/152/assassins_creed_valhalla_ubisoftmontreal_2022_7.jpg
+                      - https://img.apileague.com/games/150/assassins_creed_valhalla_ubisoftmontreal_2022_5.jpg
+                      - https://img.apileague.com/games/151/assassins_creed_valhalla_ubisoftmontreal_2022_6.jpg
+                      micro_trailer: https://video.akamai.steamstatic.com/store_trailers/256917295/microtrailer.webm
+                      gameplay: https://www.youtube-nocookie.com/embed/4DII3yLCL4A
+                      short_description: In Assassin's Creed Valhalla, play as Eivor, a Viking warrior,
+                        and explore the dark age England while completing missions, raids, and building
+                        your settlement. The complete edition includes the base game, season pass, ultimate
+                        cosmetics pack, and the Dawn of Ragnarök expansion, while the Ragnarok edition
+                        only includes the base game and the Dawn of Ragnarök expansion. The game also
+                        features a FREE new rogue-lite game mode, Forgotten Saga.
+                    - id: 206420
+                      year: 2020
+                      name: Horizon Zero Dawn
+                      genre: Open World Role Playing Shooter
+                      image: https://img.apileague.com/games/441/horizon_zero_dawn_guerrilla_2020_4.jpg
+                      link: https://gamebrain.co/game/horizon-zero-dawn
+                      rating:
+                        mean: 0.893741
+                        count: 63825
+                      adult_only: false
+                      screenshots:
+                      - https://img.apileague.com/games/498/horizon_zero_dawn_guerrilla_2020_49.jpg
+                      - https://img.apileague.com/games/490/horizon_zero_dawn_guerrilla_2020_14.jpg
+                      - https://img.apileague.com/games/495/horizon_zero_dawn_guerrilla_2020_19.jpg
+                      - https://img.apileague.com/games/494/horizon_zero_dawn_guerrilla_2020_27.jpg
+                      - https://img.apileague.com/games/488/horizon_zero_dawn_guerrilla_2020_12.jpg
+                      micro_trailer: https://video.akamai.steamstatic.com/store_trailers/256795570/microtrailer.webm
+                      gameplay: https://www.youtube-nocookie.com/embed/yKLwbkbWQpc
+                      short_description: In Horizon Zero Dawn Complete Edition, play as Aloy, a skilled
+                        hunter in a world overrun by robotic creatures. Uncover your past, shape your
+                        destiny, and protect the future in this expansive action RPG. The Complete Edition
+                        includes the base game, the frozen wilds expansion, and additional outfits, weapons,
+                        and packs. Explore a vibrant, dangerous open world and battle unique machines
+                        with tactical attacks.
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: id
+        description: The id of the game.
+        schema:
+          format: int32
+          type: integer
+          example: 1273796
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: limit
+        description: Number of results to return between 1 and 10.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 10
+          type: integer
+          example: 10
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/find-similar-games-api/
+      summary: Find Similar Games API
+      tags:
+      - Games
+      description: Find similar games based on a given game using AI. This API allows you to retrieve
+        a list of games that are similar to a specified game, providing recommendations based on various
+        factors such as genre, gameplay mechanics, and user preferences.
+      operationId: findSimilarGamesAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

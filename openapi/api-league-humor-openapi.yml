@@ -1,0 +1,661 @@
+openapi: 3.0.0
+info:
+  title: API League — Humor
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Humor
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /search-jokes:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jokes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        joke:
+                          type: string
+                          nullable: true
+                  available:
+                    type: integer
+              examples:
+                Response:
+                  value:
+                    jokes:
+                    - joke: "A retiring farmer in preparation for selling his land, needed to rid his\
+                        \ farm of animals. So he went to every house in his town. \nTo the houses where\
+                        \ the man is the boss, he gave a horse. To the houses where the woman is the boss,\
+                        \ a chicken was given. \nHe got toward the end of the street and saw a couple\
+                        \ outside gardening. \"Who's the boss around here?\" he asked. \n\"I am.\" said\
+                        \ the man. \n\"I have a black horse and a brown horse,\" the farmer said, \"which\
+                        \ one would you like?\" \nThe man thought for a minute and said, \"The black one.\"\
+                        \ \n\"No, no, no, get the brown one.\" the man's wife said. \n\"Here's your chicken.\"\
+                        \ said the farmer."
+                    - joke: "A blonde decides to try horseback riding, even though she has had no\r\n\
+                        lessons or prior experience. She mounts the horse unassisted and then\r\nhorse\
+                        \ immediately springs into motion. It gallops along at a steady and\r\nrhythmic\
+                        \ pace, but the blonde begins to slip from the\r\nsaddle. In terror, she grabs\
+                        \ for the horse's mane, but cannot seem to get\r\na firm grip.\r\nShe tries to\
+                        \ throw her arms around the horse's neck, but she slides down\r\nthe side of the\
+                        \ horse anyway. The horse gallops along, seemingly\r\nimpervious to its slipping\
+                        \ rider. Finally, giving up her frail grip, she\r\nleaps away from the horse to\
+                        \ try and throw herself to safety.\r\nUnfortunately, her foot has become entangled\
+                        \ in the stirrup and she is now\r\nat the mercy of the horse's pounding hooves\
+                        \ as her head is battered\r\nagainst the ground again and again. She is mere moments\
+                        \ away from\r\nunconsciousness when...\r\n ...the Wal-Mart manager runs out to\
+                        \ shut the horse off."
+                    - joke: Once Chuck Norris met a man on a horse that he did'nt like, now we know him
+                        as the headless horseman.
+                    available: 169
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: keywords
+        description: A comma-separated list of words that must occur in the joke.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: horse,man
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: include-tags
+        description: A comma-separated list of tags the jokes should have.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: animal
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: exclude-tags
+        description: A comma-separated list of tags the jokes must not have.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: nsfw,dark
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: min-rating
+        description: The minimum rating in range [0.0,1.0] of the jokes.
+        schema:
+          format: double
+          minimum: 0
+          maximum: 1
+          type: number
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: max-length
+        description: The maximum length of the joke in letters.
+        schema:
+          format: double
+          minimum: 0
+          maximum: 1
+          type: number
+          example: 140
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: offset
+        description: The number of jokes to skip, between 0 and 1000.
+        schema:
+          format: int32
+          minimum: 0
+          maximum: 1000
+          type: integer
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of jokes, between 1 and 10.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 10
+          type: integer
+          example: 3
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/search-jokes-api/
+      summary: Search Jokes API
+      tags:
+      - Humor
+      description: With over 50,000 jokes, you should find something for any occasion. There are 27 categories/tags
+        to choose from, but you can also search for very specific words within jokes.
+      operationId: searchJokesAPI
+      deprecated: false
+  /retrieve-random-joke:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joke:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    joke: 'What do you call a boxing match between two aardvarks?
+
+                      A snout bout!'
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: include-tags
+        description: A comma-separated list of tags the jokes should have.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: animal
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: exclude-tags
+        description: A comma-separated list of tags the jokes must not have.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: nsfw,dark
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: min-rating
+        description: The minimum rating in range [0.0,1.0] of the jokes.
+        schema:
+          format: double
+          minimum: 0
+          maximum: 1
+          type: number
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: max-length
+        description: The maximum length of the joke in letters.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 10000
+          type: integer
+          example: 140
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/random-joke-api/
+      summary: Random Joke API
+      tags:
+      - Humor
+      description: This is a simple API that returns a random joke. You can filter the jokes by tags and
+        keywords. To make sure they are safe for work, you could use the exclude-tags parameter to exclude
+        jokes with certain tags such as "nsfw" or "religious".
+      operationId: randomJokeAPI
+      deprecated: false
+  /search-memes:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  memes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        description:
+                          type: string
+                          nullable: true
+                        url:
+                          type: string
+                          nullable: true
+                        type:
+                          type: string
+                          nullable: true
+                  available:
+                    type: integer
+              examples:
+                Response:
+                  value:
+                    memes:
+                    - description: 'Hey, you want a light show?: Edit: Thank you for getting the joke.
+                        I didn’t think a joke about gloving would land, but I appreciate your sense of
+                        humor Imgur. Let me know what shows you are going to or went to this year. DM
+                        me if you want to team up on Rocket League.'
+                      url: https://i.imgur.com/4msjS5E.mp4
+                      type: video/mp4
+                    - description: 'Rocket Money is a scam.: Prevented a $30 charge of something I don''t
+                        use anymore. Feels good.'
+                      url: https://i.imgur.com/q3cZlpv.png
+                      type: image/png
+                    - description: 'Rocket Money is a scam.: Cat tax.'
+                      url: https://i.imgur.com/yaZoCFP.jpg
+                      type: image/jpeg
+                    available: 156
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: keywords
+        description: A comma-separated list of words that must occur in the meme.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: rocket
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: keywords-in-image
+        description: Whether the keywords must occur in the image.
+        schema:
+          type: boolean
+          example: true
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: media-type
+        description: The media type (either 'image', 'video' or even specific format such as 'jpg', 'png',
+          or 'gif').
+        schema:
+          pattern: .
+          maxLength: 10
+          type: string
+          example: image
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: min-rating
+        description: The minimum rating in range [0.0,1.0] of the meme.
+        schema:
+          format: double
+          minimum: 0
+          maximum: 1
+          type: number
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: max-age-days
+        description: The maximum age of the meme in days.
+        schema:
+          format: int32
+          minimum: 0
+          maximum: 10000
+          type: integer
+          example: 30
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: offset
+        description: The number of memes to skip, between 0 and 1000.
+        schema:
+          format: int32
+          minimum: 0
+          maximum: 1000
+          type: integer
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of memes, between 1 and 10.
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 10
+          type: integer
+          example: 3
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/search-memes-api/
+      summary: Search Memes API
+      tags:
+      - Humor
+      description: Search over 300,000 memes by keyword, rating, and age. Most memes are stills (images)
+        but using the media-type you can also get videos. You can even search for text within memes. You'll
+        surely find something funny.
+      operationId: searchMemesAPI
+      deprecated: false
+  /retrieve-random-meme:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  description:
+                    type: string
+                    nullable: true
+                  url:
+                    type: string
+                    nullable: true
+                  type:
+                    type: string
+                    nullable: true
+                  width:
+                    type: integer
+                  height:
+                    type: integer
+                  ratio:
+                    type: number
+              examples:
+                Response:
+                  value:
+                    description: That's totally fine.
+                    url: https://preview.redd.it/2wpfufhz8p751.jpg?width=640&crop=smart&auto=webp&s=dab7d5eba791f3a884b0c0614630c99e38c46c4d
+                    type: image/jpeg
+                    width: 640
+                    height: 702
+                    ratio: 0.9116809116809117
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: keywords
+        description: A comma-separated list of words that must occur in the meme.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: airplane
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: keywords-in-image
+        description: Whether the keywords must occur in the image.
+        schema:
+          type: boolean
+          example: true
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: media-type
+        description: The media type (either 'image', 'video' or even specific format such as 'jpg', 'png',
+          or 'gif').
+        schema:
+          pattern: .
+          maxLength: 10
+          type: string
+          example: image
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: min-rating
+        description: The minimum rating in range [0.0,1.0] of the meme.
+        schema:
+          format: double
+          minimum: 0
+          maximum: 1
+          type: number
+          example: 0
+        required: false
+        style: form
+        explode: false
+        in: query
+      - name: max-age-days
+        description: The maximum age of the meme in days.
+        schema:
+          format: int32
+          minimum: 0
+          maximum: 1000
+          type: integer
+          example: 30
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/random-meme-api/
+      summary: Random Meme API
+      tags:
+      - Humor
+      description: Get a random meme out of over 300,000+ memes. To get the latest memes, you can use
+        the max-age-days parameter.
+      operationId: randomMemeAPI
+      deprecated: false
+  /search-gifs:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          nullable: true
+                        width:
+                          type: integer
+                        height:
+                          type: integer
+              examples:
+                Response:
+                  value:
+                    images:
+                    - url: https://media.tenor.com/xEf4j9pnMywAAAAC/dog-dogs.gif
+                      width: 362
+                      height: 498
+                    - url: https://media.tenor.com/U-g_SmVeq40AAAAC/poodle-dancing-dog-poodle.gif
+                      width: 248
+                      height: 498
+                    - url: https://media.tenor.com/SmFA9ziWpx4AAAAC/dogs-dog.gif
+                      width: 498
+                      height: 374
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: query
+        description: The search query.
+        schema:
+          pattern: .
+          maxLength: 300
+          type: string
+          example: dogs
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: number
+        description: The number of gifs to return in range [1,10]
+        schema:
+          format: int32
+          minimum: 1
+          maximum: 10
+          type: integer
+          example: 5
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/search-gifs-api/
+      summary: Search Gifs API
+      tags:
+      - Humor
+      description: Search through hundreds of thousands of gifs to match any reaction you want. The gifs
+        are returned in a list with the URL, width, and height of the gif.
+      operationId: searchGifsAPI
+      deprecated: false
+  /generate-nonsense-word:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  word:
+                    type: string
+                    nullable: true
+                  rating:
+                    type: number
+              examples:
+                Response:
+                  value:
+                    word: caboo
+                    rating: 0.41
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters: []
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/generate-nonsense-word-api/
+      summary: Generate Nonsense Word API
+      tags:
+      - Humor
+      description: Generate a funny sounding nonsense word. This is useful for generating random words
+        for games, naming things, or just for fun. The response will contain the generated word and a
+        rating of how funny it is.
+      operationId: generateNonsenseWordAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

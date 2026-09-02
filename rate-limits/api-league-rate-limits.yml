@@ -4,92 +4,98 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: API League
 providerId: api-league
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-02'
+generated: '2026-09-02'
+method: searched
+source: https://apileague.com/docs/quotas-and-rate-limiting/ and https://apileague.com/pricing/
+# 2026-09-02: REPLACED the 2026-05-04 bulk-sweep scaffold, which invented X-RateLimit-* /
+# RateLimit-Policy / Retry-After headers that API League does not send, invented three tiers,
+# and metered in requests/month. The real API signals QUOTA with three vendor X-API-Quota-*
+# headers, meters in TOKENS PER DAY, and sends NO rate-limit headers and NO Retry-After at all.
+limit_count: 12
+description: >-
+  API League enforces two independent ceilings and reports on only one of them. QUOTA is a
+  daily token allowance, reported on every response through three vendor headers and enforced
+  with HTTP 402. RATE is a per-second request ceiling plus a separate concurrency ceiling,
+  enforced with HTTP 429 and reported through NO headers whatsoever — there is no
+  RateLimit-Limit, no X-RateLimit-Remaining and no Retry-After. An agent can therefore see
+  exactly how much budget it has left, but is blind to how close it is to being throttled and
+  gets no server-directed backoff when it is.
+headers:
+  quota:
+    - {name: X-API-Quota-Request, meaning: 'Number of tokens consumed by THIS request.'}
+    - {name: X-API-Quota-Used, meaning: 'Total tokens used today. Resets to zero at midnight UTC.'}
+    - {name: X-API-Quota-Left, meaning: 'Tokens remaining today, per the plan.'}
+  rate: []
+  retry_after: false
+  standard_ratelimit_headers: false
+  note: >-
+    "You have complete control over your quota by looking at your console dashboard and
+    checking the API response headers that appear with every answer from the API." — the three
+    X-API-Quota-* headers are returned on every response, not only near the limit.
+responseCodes:
+  quotaExceeded: 402
+  throttled: 429
+  note: >-
+    402 and 429 mean DIFFERENT failures here and must not be collapsed. 402 = the daily token
+    allowance is gone; on the Free plan nothing more will succeed until midnight UTC, on a paid
+    plan overage billing takes over. 429 = too many requests per second, or too many in flight
+    at once.
+metering:
+  unit: token
+  detail: >-
+    Billing and quota are metered in tokens, not requests. A token is "a cost associated with
+    each API endpoint", and the cost of a call depends on the endpoint AND on how its
+    parameters are set; the per-endpoint cost is published on each endpoint's documentation
+    page. One request can therefore consume many tokens.
+  period: day
+  reset: midnight UTC
+limits:
+  - {tier: Free, name: Daily Token Quota, scope: api-key, metric: tokens, limit: 50, timeFrame: day, enforcement: 'HTTP 402, hard stop — no overage', applies: [API League Platform]}
+  - {tier: Free, name: Request Rate, scope: api-key, metric: requests_per_minute, limit: 60, timeFrame: minute, enforcement: 'HTTP 429', applies: [API League Platform], note: 'Stated as "60 requests in 1 minute" on the rate-limiting page and as "1 request/s" on the pricing page — the same ceiling expressed two ways.'}
+  - {tier: Free, name: Concurrency, scope: api-key, metric: concurrent_requests, limit: 1, enforcement: 'HTTP 429', applies: [API League Platform]}
+  - {tier: Rookie, name: Daily Token Quota, scope: api-key, metric: tokens, limit: 500, timeFrame: day, enforcement: 'overage billed at $0.006/token', applies: [API League Platform]}
+  - {tier: Rookie, name: Request Rate, scope: api-key, metric: requests_per_second, limit: 2, timeFrame: second, enforcement: 'HTTP 429', applies: [API League Platform]}
+  - {tier: Rookie, name: Concurrency, scope: api-key, metric: concurrent_requests, limit: 5, enforcement: 'HTTP 429', applies: [API League Platform]}
+  - {tier: Pro, name: Daily Token Quota, scope: api-key, metric: tokens, limit: 5000, timeFrame: day, enforcement: 'overage billed at $0.004/token', applies: [API League Platform]}
+  - {tier: Pro, name: Request Rate, scope: api-key, metric: requests_per_second, limit: 10, timeFrame: second, enforcement: 'HTTP 429', applies: [API League Platform]}
+  - {tier: Pro, name: Concurrency, scope: api-key, metric: concurrent_requests, limit: 10, enforcement: 'HTTP 429', applies: [API League Platform]}
+  - {tier: Champion, name: Daily Token Quota, scope: api-key, metric: tokens, limit: 50000, timeFrame: day, enforcement: 'overage billed at $0.002/token', applies: [API League Platform]}
+  - {tier: Champion, name: Request Rate, scope: api-key, metric: requests_per_second, limit: 20, timeFrame: second, enforcement: 'HTTP 429', applies: [API League Platform]}
+  - {tier: Champion, name: Concurrency, scope: api-key, metric: concurrent_requests, limit: 20, enforcement: 'HTTP 429', applies: [API League Platform], note: 'CONFLICT: the pricing page says 20 concurrent requests for Champion; the rate-limiting documentation page says 10. Both are the provider''s own pages. Recorded as 20 (pricing) with the discrepancy noted rather than silently picking one.'}
+discrepancies:
+  - field: Champion concurrency
+    pricing_page: 20
+    docs_page: 10
+    urls: ['https://apileague.com/pricing/', 'https://apileague.com/docs/quotas-and-rate-limiting/']
+    note: Unresolved provider-side disagreement, not a reading error. Worth reporting back to API League.
+gaps:
+  - No Retry-After header on 429, so a throttled agent has no server-directed backoff interval.
+  - No RateLimit-* or X-RateLimit-* headers, so rate headroom is invisible at runtime — only quota headroom is reported.
+  - Per-endpoint token costs are published per documentation page and are not in the OpenAPI, so an agent cannot price a call from the machine-readable contract.
+policies:
+  - name: Concurrency is separate from rate
+    description: >-
+      The provider gives a worked example: on a 2-concurrent plan, two three-second searches
+      started in quick succession occupy both slots, and a third call errors until one finishes
+      — even though the per-second rate was never exceeded.
+  - name: Quota reset
+    description: Daily token quotas reset to zero at midnight UTC. There is no monthly quota.
+  - name: Free-tier hard stop
+    description: On Free there is no overage path — once the daily quota is gone the API returns 402 until reset.
 tags:
   - API Marketplace
-  - Books
-  - Developer Tools
-  - Food
-  - Humor
-  - News
-  - SDKs
-  - Text Processing
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the API League API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - API League Platform
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - API League Platform
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - API League Platform
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - API League Platform
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - API League Platform
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - Tokens
+evidence:
+  - {url: 'https://apileague.com/docs/quotas-and-rate-limiting/', status: 200}
+  - {url: 'https://apileague.com/pricing/', status: 200}
+cross_links:
+  plans: plans/api-league-plans-pricing.yml
+  errors: errors/api-league-problem-types.yml
+  conventions: conventions/api-league-conventions.yml
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com

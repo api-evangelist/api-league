@@ -1,0 +1,115 @@
+generated: '2026-09-02'
+method: derived
+source: >-
+  openapi/_original/api-league-openapi.json (every one of the 55 operations declares the same
+  six error responses), enriched from https://apileague.com/docs/quotas-and-rate-limiting/ and
+  https://apileague.com/docs/authentication/, plus a live unauthenticated observation of
+  https://api.apileague.com/ on 2026-09-02.
+provider: API League
+providerId: api-league
+format: vendor-json
+description: >-
+  API League does NOT use RFC 9457 application/problem+json. It returns a small flat JSON
+  envelope with content-type application/json;charset=UTF-8. The envelope was observed live on
+  an unauthenticated request to https://api.apileague.com/ and is identical for every path on
+  the host: {"status":"failure","code":401,"message":"Please read
+  https://apileague.com/docs/authentication"}.
+
+  The OpenAPI declares the same six error statuses — 401, 402, 403, 404, 406, 429 — uniformly
+  on all 55 operations, with one-word HTTP reason phrases and no response schema attached, so
+  the machine-readable contract carries the status codes but not the body shape. The meanings
+  below for 402 and 429 come from the provider's published quota documentation, not from the
+  spec; that distinction is recorded per entry.
+envelope:
+  content_type: application/json;charset=UTF-8
+  fields:
+    - {name: status, type: string, example: failure}
+    - {name: code, type: integer, description: mirrors the HTTP status code}
+    - {name: message, type: string, description: human-readable message, frequently a docs URL}
+  observed:
+    url: https://api.apileague.com/
+    http_status: 401
+    body: '{"status":"failure", "code":401,"message":"Please read https://apileague.com/docs/authentication"}'
+    fetched: '2026-09-02'
+  rfc9457: false
+  note: >-
+    No `type` URI, no `title`, no `instance`, no problem+json media type. An agent cannot
+    branch on a stable machine-readable error identifier here — only on the HTTP status.
+problems:
+  - status: 401
+    name: Unauthorized
+    title: Missing or invalid API key
+    meaning: >-
+      No api-key query parameter and no x-api-key header was supplied, or the key is not
+      recognised. Also returned for every path on api.apileague.com that is not a real
+      operation, so a 401 is NOT proof that the path exists.
+    remediation: >-
+      Send the key as ?api-key=YOUR-API-KEY or as the x-api-key request header. See
+      https://apileague.com/docs/authentication/
+    source: spec + observed live
+    applies_to: all 55 operations
+  - status: 402
+    name: Payment Required
+    title: Daily token quota exhausted
+    meaning: >-
+      The account's daily token allowance is used up. The provider documents this explicitly:
+      "When you are on the free plan and your daily quota is used up, the API will respond with
+      the error code 402 and no more calls can be made until your quota resets." Quotas reset
+      at midnight UTC.
+    remediation: >-
+      Wait for the midnight-UTC reset, or upgrade the plan. Watch X-API-Quota-Left on every
+      response to avoid hitting it. Paid plans charge per-token overage instead of hard-stopping.
+    source: docs — https://apileague.com/docs/quotas-and-rate-limiting/
+    applies_to: all 55 operations
+  - status: 403
+    name: Forbidden
+    title: Not permitted for this key or plan
+    meaning: The key is valid but not entitled to this operation or use.
+    remediation: Check the plan at https://apileague.com/pricing/ and the console at https://apileague.com/console/
+    source: spec (declared, no description published)
+    applies_to: all 55 operations
+  - status: 404
+    name: Not Found
+    title: Resource not found
+    meaning: >-
+      The requested entity does not exist — e.g. an unknown id passed to retrieveArtworkById,
+      retrieveGameById or retrieveRecipeInformationAPI.
+    source: spec (declared, no description published)
+    applies_to: all 55 operations
+  - status: 406
+    name: Not Acceptable
+    title: Unacceptable request parameters
+    meaning: >-
+      Declared on every operation. The provider publishes no description for it; in practice
+      this is the class returned when a parameter violates the schema constraints the spec
+      states (pattern, maxLength, minimum/maximum) rather than a content-negotiation failure.
+    remediation: Validate parameters against the constraints in the OpenAPI before sending.
+    source: spec (declared, no description published — meaning inferred, not asserted by the provider)
+    applies_to: all 55 operations
+  - status: 429
+    name: Too Many Requests
+    title: Rate limit or concurrency limit exceeded
+    meaning: >-
+      Too many requests per second, or too many simultaneous in-flight requests, for the plan.
+      The provider states: "There is a limit of how many requests you can make per second. The
+      limits depend on the plan you are on. If you try making more requests you will receive a
+      429 error." Concurrency is a separate ceiling from rate — a request can 429 for holding
+      too many open calls even at a legal request rate.
+    remediation: >-
+      Back off and retry. Per-plan ceilings are in rate-limits/api-league-rate-limits.yml.
+      NOTE: the provider does not document a Retry-After header, so an agent must use its own
+      backoff schedule rather than reading one off the response.
+    source: docs — https://apileague.com/docs/quotas-and-rate-limiting/
+    applies_to: all 55 operations
+gaps:
+  - No error response schema is attached to any 4xx in the OpenAPI — only the status code and a reason phrase.
+  - No error-code registry beyond the HTTP status; there is no stable vendor error identifier to branch on.
+  - No Retry-After header is documented for 429.
+  - 403 and 406 have no published meaning at all; the 406 reading above is inferred and labelled as such.
+cross_links:
+  rate_limits: rate-limits/api-league-rate-limits.yml
+  conventions: conventions/api-league-conventions.yml
+  authentication: authentication/api-league-authentication.yml
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

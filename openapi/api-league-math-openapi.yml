@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: API League — Math
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Math
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /convert-units:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  target_amount:
+                    type: number
+                  target_unit:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    target_amount: 220.46226218487757
+                    target_unit: lb
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: source-amount
+        description: The source amount.
+        schema:
+          format: double
+          minimum: 0
+          maximum: 99999999
+          type: number
+          example: 100
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: source-unit
+        description: The source unit.
+        schema:
+          pattern: .
+          maxLength: 100
+          type: string
+          example: kg
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: target-unit
+        description: The unit to which should be converted.
+        schema:
+          pattern: .
+          maxLength: 100
+          type: string
+          example: lb
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: food-name
+        description: An optional food name. For converting foods the food is relevant as they have different
+          densities.
+        schema:
+          pattern: .
+          maxLength: 200
+          type: string
+          example: flour
+        required: false
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/convert-units-api/
+      summary: Convert Units API
+      tags:
+      - Math
+      description: Convert units from one to another. The API returns the amount and the unit of the target
+        unit.
+      operationId: convertUnitsAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

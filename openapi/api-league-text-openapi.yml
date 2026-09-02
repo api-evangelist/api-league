@@ -1,0 +1,1095 @@
+openapi: 3.0.0
+info:
+  title: API League — Text
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Text
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /correct-spelling:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  corrected_text:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    corrected_text: driving cars is fun
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text to be corrected.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: Driving carss is fun.
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: language
+        description: The language of the text, one of en, de, es, fr, or it.
+        schema:
+          pattern: .
+          maxLength: 2
+          type: string
+          example: en
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/correct-spelling-api/
+      summary: Correct Spelling API
+      tags:
+      - Text
+      description: 'The API corrects spelling mistakes in a given text. It returns the corrected text
+        or the original text if nothing was corrected. This API supports text in the following languages:
+        English (en), French (fr), German (de), Italian (it), and Spanish (es).'
+      operationId: correctSpellingAPI
+      deprecated: false
+  /detect-language:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    language:
+                      type: string
+                      nullable: true
+                    confidence:
+                      type: number
+              examples:
+                Response:
+                  value:
+                  - language: de
+                    confidence: 0.34
+                  - language: et
+                    confidence: 0.22
+                  - language: fi
+                    confidence: 0.13
+                  - language: sv
+                    confidence: 0.11
+                  - language: it
+                    confidence: 0.11
+                  - language: es
+                    confidence: 0.05
+                  - language: pt
+                    confidence: 0.03
+                  - language: lt
+                    confidence: 0.01
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text for which the language should be detected.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: Das ist ein Text.
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/detect-language-api/
+      summary: Detect Language API
+      tags:
+      - Text
+      description: Detect the language of the given text. The API returns a list of languages and their
+        confidence scores. The confidence score is a value between 0 and 1, where 1 means the language
+        was detected with 100% confidence. The API supports text in 22 languages.
+      operationId: detectLanguageAPI
+      deprecated: false
+  /detect-sentiment:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: object
+                    properties:
+                      sentiment:
+                        type: string
+                        nullable: true
+                      confidence:
+                        type: integer
+                      average_confidence:
+                        type: integer
+                  sentences:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sentiment:
+                          type: string
+                          nullable: true
+                        offset:
+                          type: integer
+                        confidence:
+                          type: integer
+                        length:
+                          type: integer
+              examples:
+                Response:
+                  value:
+                    document:
+                      sentiment: positive
+                      confidence: 1
+                      average_confidence: 1
+                    sentences:
+                    - sentiment: positive
+                      offset: 0
+                      confidence: 1
+                      length: 34
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text for which the sentiment should be detected.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: Happy times feel so good.
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/detect-sentiment-api/
+      summary: Detect Sentiment API
+      tags:
+      - Text
+      description: Detect the sentiment (positive or negative) of a given text. The entire document is
+        scored and also each individual sentence.
+      operationId: detectSentimentAPI
+      deprecated: false
+  /score-text:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  number_of_words:
+                    type: integer
+                  number_of_sentences:
+                    type: integer
+                  readability:
+                    type: object
+                    properties:
+                      mainscores:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                          total_possible:
+                            type: integer
+                      subscores:
+                        type: object
+                        properties:
+                          forcast:
+                            type: number
+                          flesch:
+                            type: number
+                          smog:
+                            type: number
+                          ari:
+                            type: number
+                          lix:
+                            type: number
+                          kincaid:
+                            type: number
+                          fog:
+                            type: number
+                          coleman_liau:
+                            type: number
+                          reading_time_seconds:
+                            type: integer
+                  skimmability:
+                    type: object
+                    properties:
+                      mainscores:
+                        type: object
+                        properties:
+                          total:
+                            type: number
+                          total_possible:
+                            type: integer
+                      subscores:
+                        type: object
+                        properties:
+                          highlighted_word_ratio_score:
+                            type: array
+                            items:
+                              type: number
+                          bullet_point_ratio_score:
+                            type: array
+                            items:
+                              type: number
+                          paragraph_headline_ratio_score:
+                            type: array
+                            items:
+                              type: number
+                          image_score:
+                            type: array
+                            items:
+                              type: number
+                          video_score:
+                            type: array
+                            items:
+                              type: number
+                          paragraph_score:
+                            type: array
+                            items:
+                              type: number
+                  interestingness:
+                    type: object
+                    properties:
+                      mainscores:
+                        type: object
+                        properties:
+                          total:
+                            type: number
+                          total_possible:
+                            type: integer
+                      subscores:
+                        type: object
+                        properties:
+                          google_hits_score:
+                            type: array
+                            items:
+                              type: number
+                          link_score:
+                            type: array
+                            items:
+                              type: number
+                          quote_score:
+                            type: array
+                            items:
+                              type: number
+                          title_rating_score:
+                            type: array
+                            items:
+                              type: number
+                          length_score:
+                            type: array
+                            items:
+                              type: number
+                  style:
+                    type: object
+                    properties:
+                      mainscores:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                          total_possible:
+                            type: integer
+                      subscores:
+                        type: object
+                        properties:
+                          abbreviation_score:
+                            type: array
+                            items:
+                              type: number
+                          style_score:
+                            type: array
+                            items:
+                              type: number
+                          spelling_score:
+                            type: array
+                            items:
+                              type: number
+                  total_score:
+                    type: number
+              examples:
+                Response:
+                  value:
+                    number_of_words: 7
+                    number_of_sentences: 1
+                    readability:
+                      mainscores:
+                        total: 10
+                        total_possible: 10
+                      subscores:
+                        forcast: -0.99
+                        flesch: 78.873
+                        smog: 8.842
+                        ari: 0.237
+                        lix: -0.99
+                        kincaid: 3.997
+                        fog: 8.514
+                        coleman_liau: 2.633
+                        reading_time_seconds: 1
+                    skimmability:
+                      mainscores:
+                        total: 3.076923076923077
+                        total_possible: 10
+                      subscores:
+                        highlighted_word_ratio_score:
+                        - 0
+                        - 2
+                        bullet_point_ratio_score:
+                        - 0
+                        - 2
+                        paragraph_headline_ratio_score:
+                        - 0
+                        - 2
+                        image_score:
+                        - 0
+                        - 3
+                        video_score:
+                        - 0
+                        - 1
+                        paragraph_score:
+                        - 4
+                        - 3
+                    interestingness:
+                      mainscores:
+                        total: 3.5714285714285716
+                        total_possible: 10
+                      subscores:
+                        google_hits_score:
+                        - 4
+                        - 4
+                        link_score:
+                        - 0
+                        - 2
+                        quote_score:
+                        - 0
+                        - 1
+                        title_rating_score:
+                        - 1
+                        - 4
+                        length_score:
+                        - 0
+                        - 2
+                    style:
+                      mainscores:
+                        total: 10
+                        total_possible: 10
+                      subscores:
+                        abbreviation_score:
+                        - 3
+                        - 3
+                        style_score:
+                        - 5
+                        - 5
+                        spelling_score:
+                        - 5
+                        - 5
+                    total_score: 6.662087912087912
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: title
+        description: The title of the text to score.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: A short story
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: text
+        description: The text to score for multiple metrics.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: A nice short story to be analyzed
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/score-text-api/
+      summary: Score Text API
+      tags:
+      - Text
+      description: Score the readability, skimmability, interestingness, and style of a text. The readability
+        score is based on the average length of the sentences and the average length of the words in the
+        text. The text is scored with multiple readability scores such as Flesch, Smog, ARI, LIX, Kincaid,
+        Fog, and Coleman Liau. Additionally, information such as the estimated reading time in seconds
+        is returned.
+      operationId: scoreTextAPI
+      deprecated: false
+  /score-readability:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  readability:
+                    type: object
+                    properties:
+                      mainscores:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                          total_possible:
+                            type: integer
+                      subscores:
+                        type: object
+                        properties:
+                          forcast:
+                            type: number
+                          flesch:
+                            type: number
+                          smog:
+                            type: number
+                          ari:
+                            type: number
+                          lix:
+                            type: number
+                          kincaid:
+                            type: number
+                          fog:
+                            type: number
+                          coleman_liau:
+                            type: number
+                          reading_time_seconds:
+                            type: integer
+              examples:
+                Response:
+                  value:
+                    readability:
+                      mainscores:
+                        total: 10
+                        total_possible: 10
+                      subscores:
+                        forcast: -0.99
+                        flesch: 50.471
+                        smog: 11.208
+                        ari: 8.258
+                        lix: -0.99
+                        kincaid: 9.449
+                        fog: 11.354
+                        coleman_liau: 10.889
+                        reading_time_seconds: 3
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text to score for readability.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: A rather complex text, hard to read, and highly convoluted using acronym TERMS.
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/score-readability-api/
+      summary: Score Readability API
+      tags:
+      - Text
+      description: Score the readability of a text. The readability score is based on the average length
+        of the sentences and the average length of the words in the text. The text is score with multiple
+        readability scores such as Flesch, Smog, ARI, LIX, Kincaid, Fog, and Coleman Liau.
+      operationId: scoreReadabilityAPI
+      deprecated: false
+  /extract-dates:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        start_position:
+                          type: integer
+                        date:
+                          type: string
+                          nullable: true
+                        normalized_date:
+                          type: number
+                        tag:
+                          type: string
+                          nullable: true
+                        end_position:
+                          type: integer
+              examples:
+                Response:
+                  value:
+                    dates:
+                    - start_position: 3
+                      date: April 5th, 2035
+                      normalized_date: 2059336800000
+                      tag: DATETIME
+                      end_position: 18
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text from which dates should be extracted.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: On 5th or April, 2035 there will be flying cars - 2023-02-12.
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/extract-dates-api/
+      summary: Extract Dates API
+      tags:
+      - Text
+      description: Extract dates from a given text. The API will return a list of dates with their positions
+        in the text and the normalized form of the date. A large list of date formats is supported. For
+        example, the text could contain dates in the form of "April 5th, 2035", "04/05/2035", or "05.04.2035".
+        The normalized date is the date in the form of a timestamp (milliseconds since 1970).
+      operationId: extractDatesAPI
+      deprecated: false
+  /detect-gender:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    nullable: true
+                  probability_male:
+                    type: number
+                  probability_female:
+                    type: number
+                  popularity:
+                    type: number
+              examples:
+                Response:
+                  value:
+                    name: Alex
+                    probability_male: 0.9679
+                    probability_female: 0.0321
+                    popularity: 0.00152
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: name
+        description: The name of the perso for which the sentiment should be detected.
+        schema:
+          pattern: .
+          maxLength: 30
+          type: string
+          example: Alex
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/gender-name-detection-api/
+      summary: Detect Gender by Name API
+      tags:
+      - Text
+      description: Detect the likelihood that a name is given to a male or female (aka to "genderize"
+        a name). While there are more than two genders, this API is limited to the binary classification
+        as the name is given to the baby when it is born and only the sex is known.
+      operationId: detectGenderByNameAPI
+      deprecated: false
+  /list-synonyms:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  synonyms:
+                    type: array
+                    items:
+                      type: string
+                      nullable: true
+              examples:
+                Response:
+                  value:
+                    synonyms:
+                    - aeroplane
+                    - plane
+                    - heavier-than-air craft
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: word
+        description: The (noun) word for which a list of synonyms should be returned.
+        schema:
+          pattern: .
+          maxLength: 50
+          type: string
+          example: airplane
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/synonyms-api/
+      summary: List Word Synonyms API
+      tags:
+      - Text
+      description: Return synonyms of a word.
+      operationId: listWordSynonymsAPI
+      deprecated: false
+  /tag-pos:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tagged_text:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    tagged_text: The/AT lazy/JJ dog/NN jumps/NNS over/UNDER the/AT quick/RB brown/JJ fox/NN
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text to tag the part of speech.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: The lazy dog jumps over the quick brown fox.
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/pos-tagging-api/
+      summary: Tag Part of Speech API
+      tags:
+      - Text
+      description: Part of speech tagging is the process of marking up a word in a text as corresponding
+        to a particular part of speech, based on both its definition and its context. This is a simple
+        API that takes a text and returns the tagged text.
+      operationId: tagPartOfSpeechAPI
+      deprecated: false
+  /stem-text:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  original:
+                    type: string
+                    nullable: true
+                  stemmed:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    original: The laziest dogs are jumping over the quicker brown foxes
+                    stemmed: The laziest dog are jump over the quicker brown fox
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text to be stemmed.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: The laziest dogs are jumping over the quicker brown foxes.
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/stemming-api/
+      summary: Stem Text API
+      tags:
+      - Text
+      description: The Text Stemming API is used to get the root form of a word. It is useful for searching
+        and natural language processing.
+      operationId: stemTextAPI
+      deprecated: false
+  /singularize-word:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  original:
+                    type: string
+                    nullable: true
+                  singular:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    original: parties
+                    singular: party
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: word
+        description: The (noun) word for which the singular form should be found.
+        schema:
+          pattern: .
+          maxLength: 50
+          type: string
+          example: airplanes
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/word-singularization-pluralization-api/
+      summary: Singularize Word API
+      tags:
+      - Text
+      description: Find the singular form of a word.
+      operationId: singularizeWordAPI
+      deprecated: false
+  /pluralize-word:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  original:
+                    type: string
+                    nullable: true
+                  plural:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    original: party
+                    plural: parties
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: word
+        description: The (noun) word for which the plural form should be found.
+        schema:
+          pattern: .
+          maxLength: 50
+          type: string
+          example: party
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/word-singularization-pluralization-api/
+      summary: Pluralize Word API
+      tags:
+      - Text
+      description: Find the plural form of a word.
+      operationId: pluralizeWordAPI
+      deprecated: false
+  /extract-entities:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entities:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          nullable: true
+                        value:
+                          type: string
+                          nullable: true
+                        start_position:
+                          type: integer
+                        end_position:
+                          type: integer
+                        image:
+                          type: string
+                          nullable: true
+              examples:
+                Response:
+                  value:
+                    entities:
+                    - type: PER
+                      value: Jim Carrey
+                      start_position: 0
+                      end_position: 10
+                      image: https://upload.wikimedia.org/wikipedia/commons/8/8b/Jim_Carrey_2008.jpg
+                    - type: LOC
+                      value: Canada
+                      start_position: 28
+                      end_position: 34
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: text
+        description: The text from which entities should be extracted.
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: Jim Carrey is an actor from Canada
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/extract-entities-api/
+      summary: Extract Entities API
+      tags:
+      - Text
+      description: Extract entities from a text. An entity is a word or a group of words that represent
+        a concept. For example, the word "Canada" represents the concept of a country. The word "Jim Carrey"
+        represents the concept of a person. The word "Tesla" represents the concept of a company. The
+        API will return a list of entities found in the text. The entities are classified into different
+        types such as person, location, organization, etc.
+      operationId: extractEntitiesAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

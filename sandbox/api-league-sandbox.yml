@@ -1,0 +1,79 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://apileague.com/playground/, https://apileague.com/console/,
+  https://apileague.com/docs/quick-start/, https://apileague.com/docs/authentication/,
+  https://apileague.com/pricing/
+provider: API League
+providerId: api-league
+description: >-
+  API League publishes an interactive Playground and a developer Console, but it has NO test
+  mode. That distinction matters for an agent: there is no sandbox key, no test-vs-live key
+  prefix, no simulated responses and no fixture values, so every exploratory call is a real
+  call that spends real quota against the caller's own key. The Playground says so itself:
+  "When interacting with the playground, your API key is being used."
+test_mode:
+  supported: false
+  key_prefixes: null
+  test_credentials: false
+  magic_values: []
+  fixtures: false
+  time_simulation: false
+  note: >-
+    Nothing test-shaped is published — no test keys, no magic identifiers, no trigger values,
+    no test clocks. NONE has been invented here. The nearest thing to a free trial surface is
+    the Free plan itself (50 tokens/day, no card required), which is a real production key with
+    a small allowance rather than a sandbox.
+surfaces:
+  - name: Playground
+    url: https://apileague.com/playground/
+    type: interactive-console
+    auth_required: true
+    detail: >-
+      Try-it-now console covering the API surface. Requires login and consumes the signed-in
+      account's own quota. Anonymous visitors see "You have to login to use the playground."
+    http_status: 200
+  - name: Console
+    url: https://apileague.com/console/
+    type: developer-dashboard
+    auth_required: true
+    detail: >-
+      Where the API key is issued and where daily token usage and the plan/billing state are
+      visible. The quota docs point developers here to watch consumption alongside the
+      X-API-Quota-* response headers.
+    http_status: 200
+  - name: Postman collection
+    url: https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+    type: public-collection
+    auth_required: false
+    detail: >-
+      Public, forkable Postman collection linked from the provider's own quick-start guide as
+      step 4 ("Play with all APIs by using the Postman Collection"). It is published under the
+      spoonacular-api Postman workspace — a sibling brand of the same operator, skycraft GmbH /
+      ddsky — which is why the workspace name does not match the product name.
+      Calls still need a real API key.
+    http_status: 200
+  - name: Per-endpoint demo code
+    url: https://apileague.com/apis/
+    type: code-samples
+    auth_required: false
+    detail: >-
+      Every one of the ~55 endpoint pages carries runnable demo code; the quick-start guide's
+      step 2 is to copy-paste it. This is the provider's substitute for a sandbox — read the
+      example, not simulate the call.
+    http_status: 200
+free_tier_as_trial:
+  plan: Free
+  cost: $0/mo
+  allowance: 50 tokens/day
+  card_required: false
+  behaviour_on_exhaustion: 'HTTP 402 — hard stop until the midnight-UTC reset (no overage on Free)'
+  restrictions: [non-commercial use only, backlink to apileague.com required, Discord-only support]
+  note: >-
+    The Free plan is the practical way to evaluate the API without paying, but it is production
+    and it is licence-restricted: commercial use requires a paid plan, and the free tier
+    obliges the consumer to display a backlink to apileague.com.
+  source: https://apileague.com/pricing/
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

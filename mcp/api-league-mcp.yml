@@ -1,0 +1,409 @@
+generated: '2026-09-02'
+method: derived
+status: candidate
+source: openapi/_original/api-league-openapi.json (55 operations, OpenAPI 3.0.0 v1.9.0)
+provider: API League
+providerId: api-league
+description: 'API League ships NO Model Context Protocol server. This is a CANDIDATE tool list derived
+  mechanically from the provider''s own OpenAPI — one tool per operationId — so that an agent builder
+  has a starting point and so the catalog records the shape an API League MCP server would take. It is
+  not a server, it is not reachable, and no endpoint has been invented for it.
+
+  What was actually probed on 2026-09-02: mcp.apileague.com does not resolve (no response); https://apileague.com/mcp
+  returns the site-wide 21,974-byte catch-all homepage (a soft-404, not an endpoint); https://api.apileague.com/mcp
+  returns the same blanket HTTP 401 that EVERY path on that host returns, including a control path that
+  cannot exist — so it is the gateway auth wall, not a gated MCP endpoint, and it must not be read as
+  one.
+
+  The surface is unusually well suited to MCP: 55 read-only GET operations, every one with an operationId,
+  a summary, a tag and a worked response example, and a single query/header API key. A wrapper is a small
+  amount of work for this provider.'
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: 'mode: none — nobody ships a server. The API-key model that a future server would use is documented
+    at https://apileague.com/docs/authentication (api-key query parameter or x-api-key header).'
+probes:
+- url: https://mcp.apileague.com/
+  status: null
+  result: no response — host does not resolve
+- url: https://apileague.com/mcp
+  status: 200
+  result: soft-404 catch-all homepage, 21974 bytes text/html
+- url: https://api.apileague.com/mcp
+  status: 401
+  result: blanket auth wall — the control path returns the identical 401
+- url: https://api.apileague.com/mcp (POST tools/list)
+  status: 401
+  result: '{"status":"failure","code":401,"message":"Please read https://apileague.com/docs/authentication"}'
+server:
+  name: api-league
+  transport: null
+  url: null
+  note: No server exists. transport and url deliberately null — never guess an MCP path.
+tool_count: 55
+tools:
+- name: art_search
+  category: art
+  description: Search and filter artworks by query, creation time, material, technique, and origin. The
+    natural language search uses semantic AI to understand the context of your query, so you can search
+    for artworks by their style, su
+  source_operation: openapi/api-league-art-openapi.yml#artSearchAPI
+  http: GET /search-artworks
+- name: image_to_ascii_art_by_u_r_l
+  category: art
+  description: Convert an image to ASCII art. You can pass the image URL as a query parameter. The API
+    returns the ASCII art as plain text. This endpoint is using the GET method and an image URL as a query
+    parameter.
+  source_operation: openapi/api-league-art-openapi.yml#imageToAsciiArtByURLAPI
+  http: GET /convert-image-to-ascii-txt
+- name: random_poem
+  category: art
+  description: Retrieve a random poem by many famous authors. You can filter poem's by length (number
+    of lines).
+  source_operation: openapi/api-league-art-openapi.yml#randomPoemAPI
+  http: GET /retrieve-random-poem
+- name: retrieve_artwork_by_id
+  category: art
+  description: Get one artwork by its id. The API returns the title, image URL, start and end date, and
+    a description of the artwork.
+  source_operation: openapi/api-league-art-openapi.yml#retrieveArtworkById
+  http: GET /retrieve-artwork
+- name: find_similar_books
+  category: books
+  description: Find books that are similar to the given book (based on a set of over 4 million books).
+    This is useful for recommending books to users based on their reading history or preferences. The
+    response will contain a list of si
+  source_operation: openapi/api-league-books-openapi.yml#findSimilarBooksAPI
+  http: GET /list-similar-books
+- name: search_books
+  category: books
+  description: Search and filter over 4 million books based on matching a query, the ISBN, rating, and
+    more fields. The query is semantically parsed using our own large ontology. That means you can search
+    paranormal books and the ontol
+  source_operation: openapi/api-league-books-openapi.yml#searchBooksAPI
+  http: GET /search-books
+- name: compute_nutrition
+  category: food
+  description: Compute detailed nutritional information for a given recipe (list of ingredients). The
+    API will return the nutritional information for each ingredient, as well as the total nutritional
+    content for the entire recipe. Asid
+  source_operation: openapi/api-league-food-openapi.yml#computeNutritionAPI
+  http: GET /compute-nutrition
+- name: retrieve_recipe_information
+  category: food
+  description: Get detailed recipe information such as dietary properties, macro and micro nutrients,
+    used ingredients and their amounts, and more.
+  source_operation: openapi/api-league-food-openapi.yml#retrieveRecipeInformationAPI
+  http: GET /retrieve-recipe
+- name: search_drinks
+  category: food
+  description: Search for drinks by title, ingredients, flavor, type of glass, alcohol content, and more.
+  source_operation: openapi/api-league-food-openapi.yml#searchDrinksAPI
+  http: GET /search-drinks
+- name: search_recipes
+  category: food
+  description: 'Search and filter thousands of recipes with natural language, e.g. pasta recipes without
+    mushrooms but with truffles. You can filter by ingredients, diet, cuisine, meal type, macro and micro
+    nutrition, intolerances, and '
+  source_operation: openapi/api-league-food-openapi.yml#searchRecipesAPI
+  http: GET /search-recipes
+- name: find_similar_games
+  category: games
+  description: Find similar games based on a given game using AI. This API allows you to retrieve a list
+    of games that are similar to a specified game, providing recommendations based on various factors
+    such as genre, gameplay mechanic
+  source_operation: openapi/api-league-games-openapi.yml#findSimilarGamesAPI
+  http: GET /list-similar-games
+- name: retrieve_game_by_id
+  category: games
+  description: This API allows you to retrieve detailed information about a specific game by its unique
+    identifier. Game details include the game's name, description, release date, developer, platforms,
+    genres, tags, ratings, screensho
+  source_operation: openapi/api-league-games-openapi.yml#retrieveGameById
+  http: GET /retrieve-game
+- name: search_games
+  category: games
+  description: Search through a vast database of over half a million video games from more than 50 platforms.
+    This API allows you to find games based on various criteria such as genre, platform, release date,
+    and more. The results incl
+  source_operation: openapi/api-league-games-openapi.yml#searchGamesAPI
+  http: GET /search-games
+- name: generate_nonsense_word
+  category: humor
+  description: Generate a funny sounding nonsense word. This is useful for generating random words for
+    games, naming things, or just for fun. The response will contain the generated word and a rating of
+    how funny it is.
+  source_operation: openapi/api-league-humor-openapi.yml#generateNonsenseWordAPI
+  http: GET /generate-nonsense-word
+- name: random_joke
+  category: humor
+  description: This is a simple API that returns a random joke. You can filter the jokes by tags and keywords.
+    To make sure they are safe for work, you could use the exclude-tags parameter to exclude jokes with
+    certain tags such as "ns
+  source_operation: openapi/api-league-humor-openapi.yml#randomJokeAPI
+  http: GET /retrieve-random-joke
+- name: random_meme
+  category: humor
+  description: Get a random meme out of over 300,000+ memes. To get the latest memes, you can use the
+    max-age-days parameter.
+  source_operation: openapi/api-league-humor-openapi.yml#randomMemeAPI
+  http: GET /retrieve-random-meme
+- name: search_gifs
+  category: humor
+  description: Search through hundreds of thousands of gifs to match any reaction you want. The gifs are
+    returned in a list with the URL, width, and height of the gif.
+  source_operation: openapi/api-league-humor-openapi.yml#searchGifsAPI
+  http: GET /search-gifs
+- name: search_jokes
+  category: humor
+  description: With over 50,000 jokes, you should find something for any occasion. There are 27 categories/tags
+    to choose from, but you can also search for very specific words within jokes.
+  source_operation: openapi/api-league-humor-openapi.yml#searchJokesAPI
+  http: GET /search-jokes
+- name: search_memes
+  category: humor
+  description: Search over 300,000 memes by keyword, rating, and age. Most memes are stills (images) but
+    using the media-type you can also get videos. You can even search for text within memes. You'll surely
+    find something funny.
+  source_operation: openapi/api-league-humor-openapi.yml#searchMemesAPI
+  http: GET /search-memes
+- name: random_affirmation
+  category: knowledge
+  description: This endpoint returns a random affirmation to boost your confidence and motivation. Affirmations
+    are positive statements that can help you overcome negative thoughts and improve your mindset and
+    well-being.
+  source_operation: openapi/api-league-knowledge-openapi.yml#randomAffirmationAPI
+  http: GET /retrieve-random-affirmation
+- name: random_life_hack
+  category: knowledge
+  description: This endpoint returns a random life hack to make your life easier. Life hacks are simple
+    and clever tips or tricks that can help you save time, money, or effort in your daily life.
+  source_operation: openapi/api-league-knowledge-openapi.yml#randomLifeHackAPI
+  http: GET /retrieve-random-life-hack
+- name: random_quote
+  category: knowledge
+  description: This API returns a random quote from a collection of quotes. The quotes are from famous
+    people and are in English.
+  source_operation: openapi/api-league-knowledge-openapi.yml#randomQuoteAPI
+  http: GET /retrieve-random-quote
+- name: random_riddle
+  category: knowledge
+  description: 'The riddles API returns a random riddle or brain-teaser. Riddles are a great way to exercise
+    your brain and keep it sharp. The API supports brain-teasers in three difficulty levels: easy, medium,
+    and hard. You can also g'
+  source_operation: openapi/api-league-knowledge-openapi.yml#randomRiddleAPI
+  http: GET /retrieve-random-riddle
+- name: random_trivia
+  category: knowledge
+  description: This endpoint returns a random piece of trivia like "Rio de Janeiro was once the capital
+    of Portugal, making it the only European capital outside of Europe.".
+  source_operation: openapi/api-league-knowledge-openapi.yml#randomTriviaAPI
+  http: GET /retrieve-random-trivia
+- name: convert_units
+  category: math
+  description: Convert units from one to another. The API returns the amount and the unit of the target
+    unit.
+  source_operation: openapi/api-league-math-openapi.yml#convertUnitsAPI
+  http: GET /convert-units
+- name: detect_main_image_color
+  category: media
+  description: 'Detect the main color of an image. The API returns a list of colors and their hex codes.
+    The API supports images in the following formats: JPEG, PNG, and GIF.'
+  source_operation: openapi/api-league-media-openapi.yml#detectMainImageColorAPI
+  http: GET /detect-color
+- name: rescale_image
+  category: media
+  description: Rescale an image to a specific width and height. The image will be resized to fit the specified
+    width and height while maintaining the original aspect ratio unless the crop parameter is set to true.
+    The image will be ret
+  source_operation: openapi/api-league-media-openapi.yml#rescaleImageAPI
+  http: GET /rescale-image
+- name: screenshot
+  category: media
+  description: Take a screenshot of a web page by providing the URL. IP blocks, captchas, location restrictions
+    etc. will be resolved in the process. The screenshot will be returned as an image.
+  source_operation: openapi/api-league-media-openapi.yml#screenshotAPI
+  http: GET /take-screenshot
+- name: search_icons
+  category: media
+  description: Search through millions of icons to match any topic you want.
+  source_operation: openapi/api-league-media-openapi.yml#searchIconsAPI
+  http: GET /search-icons
+- name: search_royalty_free_images
+  category: media
+  description: Search through hundreds of thousands of royalty free images to match any topic you want.
+    The images are returned in a list with the URL, width, and height of the image. Additionally, you
+    can find the license type and lin
+  source_operation: openapi/api-league-media-openapi.yml#searchRoyaltyFreeImagesAPI
+  http: GET /search-images
+- name: vector_search
+  category: media
+  description: Search through over 700,000 free to use vector icons. The license is either "PUBLIC_DOMAIN"
+    or "ATTRIBUTION". If it is "ATTRIBUTION" just attribute the author somewhere in your project.
+  source_operation: openapi/api-league-media-openapi.yml#vectorSearchAPI
+  http: GET /search-vectors
+- name: extract_news
+  category: news
+  description: Extract a news article from a website to a well structure JSON object. The API will return
+    the title, text, URL, image, publish date, author, language, source country, and sentiment of the
+    news article.
+  source_operation: openapi/api-league-news-openapi.yml#extractNewsAPI
+  http: GET /extract-news
+- name: search_news
+  category: news
+  description: Search and filter millions of news from over 200 countries in 90 languages by text, date,
+    location, category, language, and more. The API returns a list of news articles matching the given
+    criteria. You can set as many f
+  source_operation: openapi/api-league-news-openapi.yml#searchNewsAPI
+  http: GET /search-news
+- name: top_news
+  category: news
+  description: Get the top news from a country (over 220 are supported) in a language (over 90 are supported)
+    for a specific date. The top news are clustered from multiple sources in the given country. The more
+    news in a cluster the hi
+  source_operation: openapi/api-league-news-openapi.yml#topNewsAPI
+  http: GET /retrieve-top-news
+- name: read_key_value_from_store
+  category: storage
+  description: Read a value from the key-value store. The key-value store is a simple storage system that
+    allows you to store and retrieve data using a key. The data is stored in the cloud and can be accessed
+    from anywhere. You can use
+  source_operation: openapi/api-league-storage-openapi.yml#readKeyValueFromStoreAPI
+  http: GET /read-key-value
+- name: store_key_value_g_e_t
+  category: storage
+  description: 'Store a value in the key-value store. The key-value store is a simple storage system that
+    allows you to store and retrieve data using a key. The data is stored in the cloud and can be accessed
+    from anywhere. You can use '
+  source_operation: openapi/api-league-storage-openapi.yml#storeKeyValueGETAPI
+  http: GET /store-key-value
+- name: correct_spelling
+  category: text
+  description: 'The API corrects spelling mistakes in a given text. It returns the corrected text or the
+    original text if nothing was corrected. This API supports text in the following languages: English
+    (en), French (fr), German (de), '
+  source_operation: openapi/api-league-text-openapi.yml#correctSpellingAPI
+  http: GET /correct-spelling
+- name: detect_gender_by_name
+  category: text
+  description: Detect the likelihood that a name is given to a male or female (aka to "genderize" a name).
+    While there are more than two genders, this API is limited to the binary classification as the name
+    is given to the baby when it
+  source_operation: openapi/api-league-text-openapi.yml#detectGenderByNameAPI
+  http: GET /detect-gender
+- name: detect_language
+  category: text
+  description: Detect the language of the given text. The API returns a list of languages and their confidence
+    scores. The confidence score is a value between 0 and 1, where 1 means the language was detected with
+    100% confidence. The A
+  source_operation: openapi/api-league-text-openapi.yml#detectLanguageAPI
+  http: GET /detect-language
+- name: detect_sentiment
+  category: text
+  description: Detect the sentiment (positive or negative) of a given text. The entire document is scored
+    and also each individual sentence.
+  source_operation: openapi/api-league-text-openapi.yml#detectSentimentAPI
+  http: GET /detect-sentiment
+- name: extract_dates
+  category: text
+  description: Extract dates from a given text. The API will return a list of dates with their positions
+    in the text and the normalized form of the date. A large list of date formats is supported. For example,
+    the text could contain da
+  source_operation: openapi/api-league-text-openapi.yml#extractDatesAPI
+  http: GET /extract-dates
+- name: extract_entities
+  category: text
+  description: Extract entities from a text. An entity is a word or a group of words that represent a
+    concept. For example, the word "Canada" represents the concept of a country. The word "Jim Carrey"
+    represents the concept of a person
+  source_operation: openapi/api-league-text-openapi.yml#extractEntitiesAPI
+  http: GET /extract-entities
+- name: list_word_synonyms
+  category: text
+  description: Return synonyms of a word.
+  source_operation: openapi/api-league-text-openapi.yml#listWordSynonymsAPI
+  http: GET /list-synonyms
+- name: pluralize_word
+  category: text
+  description: Find the plural form of a word.
+  source_operation: openapi/api-league-text-openapi.yml#pluralizeWordAPI
+  http: GET /pluralize-word
+- name: score_readability
+  category: text
+  description: Score the readability of a text. The readability score is based on the average length of
+    the sentences and the average length of the words in the text. The text is score with multiple readability
+    scores such as Flesch, S
+  source_operation: openapi/api-league-text-openapi.yml#scoreReadabilityAPI
+  http: GET /score-readability
+- name: score_text
+  category: text
+  description: Score the readability, skimmability, interestingness, and style of a text. The readability
+    score is based on the average length of the sentences and the average length of the words in the text.
+    The text is scored with mu
+  source_operation: openapi/api-league-text-openapi.yml#scoreTextAPI
+  http: GET /score-text
+- name: singularize_word
+  category: text
+  description: Find the singular form of a word.
+  source_operation: openapi/api-league-text-openapi.yml#singularizeWordAPI
+  http: GET /singularize-word
+- name: stem_text
+  category: text
+  description: The Text Stemming API is used to get the root form of a word. It is useful for searching
+    and natural language processing.
+  source_operation: openapi/api-league-text-openapi.yml#stemTextAPI
+  http: GET /stem-text
+- name: tag_part_of_speech
+  category: text
+  description: Part of speech tagging is the process of marking up a word in a text as corresponding to
+    a particular part of speech, based on both its definition and its context. This is a simple API that
+    takes a text and returns the t
+  source_operation: openapi/api-league-text-openapi.yml#tagPartOfSpeechAPI
+  http: GET /tag-pos
+- name: extract_authors
+  category: web
+  description: Extracts the authors from a given URL. This API is useful for extracting the authors from
+    a blog post or news article. The API will return a list of authors with their names and links to their
+    profiles if available.
+  source_operation: openapi/api-league-web-openapi.yml#extractAuthorsAPI
+  http: GET /extract-authors
+- name: extract_content_from_a_web_page
+  category: web
+  description: Extract the main content from a web page. This API is useful for extracting the main text,
+    title, and images from a web page. It can be used to create a summary of the content of a web page,
+    or to extract the main conten
+  source_operation: openapi/api-league-web-openapi.yml#extractContentFromAWebPageAPI
+  http: GET /extract-content
+- name: extract_publish_date
+  category: web
+  description: Extract the publish date of an article (news or blog). The API will return the publish
+    date of the article if it can be found. The date returned is in the format YYYY-MM-DD.
+  source_operation: openapi/api-league-web-openapi.yml#extractPublishDateAPI
+  http: GET /extract-publish-date
+- name: retrieve_page_rank
+  category: web
+  description: This API allows you to retrieve the page rank of a given URL. The API returns the page
+    rank, the position of the URL in the search results, and the percentile of the page rank.
+  source_operation: openapi/api-league-web-openapi.yml#retrievePageRankAPI
+  http: GET /retrieve-page-rank
+- name: search_web
+  category: web
+  description: Search the web for a given query. The API returns a list of results with the title, summary,
+    and URL.
+  source_operation: openapi/api-league-web-openapi.yml#searchWebAPI
+  http: GET /search-web
+- name: verify_email_address
+  category: web
+  description: This email checker API allows you to validate an email address. The validation will parse
+    the name if possible and check whether the email is not just a disposable junk email address. The
+    API will also check if the email
+  source_operation: openapi/api-league-web-openapi.yml#verifyEmailAddressAPI
+  http: GET /verify-email
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com

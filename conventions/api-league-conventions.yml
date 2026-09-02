@@ -1,0 +1,173 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://apileague.com/docs/authentication/, https://apileague.com/docs/quotas-and-rate-limiting/,
+  https://apileague.com/docs/quick-start/, https://apileague.com/pricing/, and derived from
+  openapi/_original/api-league-openapi.json (55 operations).
+provider: API League
+providerId: api-league
+description: >-
+  Cross-cutting runtime semantics for the API League platform. This is a deliberately narrow
+  API: 55 operations, every one an HTTP GET, one flat host, one API key, no request bodies and
+  no resource lifecycle. That narrowness is what shapes almost every field below — several
+  agent-readiness dimensions are `na` here not because nothing was found but because there is
+  no write surface for them to describe.
+auth:
+  style: API key
+  transport:
+    - {kind: query, parameter: api-key, example: 'https://api.apileague.com/search-books?api-key=YOUR-API-KEY&query=romance'}
+    - {kind: header, parameter: x-api-key}
+  docs: https://apileague.com/docs/authentication/
+  oauth: false
+  scopes: false
+  detail: >-
+    Two interchangeable apiKey security schemes are declared in the OpenAPI and both are
+    applied globally. The provider's own examples put the key in the URL query string, which is
+    the weaker of the two — keys in query strings land in proxy logs, browser history and
+    referrers. The x-api-key header is documented as the alternative and is the one an agent
+    should use. The terms of use make the consumer responsible for key confidentiality.
+  cross_link: authentication/api-league-authentication.yml
+idempotency:
+  supported: na
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    All 55 operations are GET and are therefore idempotent by HTTP semantics; there is no
+    idempotency-key contract because there are no non-idempotent requests to protect. NO
+    `Idempotency` pointer is emitted in apis.yml — that pointer must assert a real idempotency
+    mechanism the provider designed, and API League has not needed one. The single caveat is
+    `storeKeyValueGETAPI` (GET /store-key-value), which WRITES through a GET; it is idempotent
+    per-key by last-write-wins, but it is a state change behind a safe method, which means
+    caches and prefetchers can fire it. An agent must not treat GET as side-effect-free on
+    that one path.
+pagination:
+  style: offset-limit
+  params:
+    - {name: number, description: 'number of results to return (page size)', typical_max: varies by endpoint}
+    - {name: offset, description: 'number of results to skip', default: 0}
+  response_fields: [total_results, number, offset]
+  applies_to: >-
+    The search-shaped operations — searchBooksAPI, searchNewsAPI, searchJokesAPI, searchMemesAPI,
+    searchGifsAPI, searchRecipesAPI, searchDrinksAPI, artSearchAPI, searchGamesAPI, searchWebAPI,
+    searchRoyaltyFreeImagesAPI, searchIconsAPI, vectorSearchAPI. `number` appears on 13
+    operations and `offset` on 9.
+  cursor: false
+  note: >-
+    Classic offset pagination with a total count in the envelope, so a client can compute page
+    count up front. No cursor, no Link header, no next-page token.
+field_expansion:
+  supported: false
+  note: No expand/include parameter anywhere in the spec. Responses are fixed shapes.
+sparse_fieldsets:
+  supported: false
+  note: No fields/select parameter.
+metadata:
+  supported: false
+  note: No customer-attachable metadata surface — the API is stateless lookup, not object storage.
+request_id_tracing:
+  supported: false
+  header: null
+  note: >-
+    No request-id or correlation-id header is documented, and none was returned on the
+    unauthenticated 401 observed on api.apileague.com. An agent has no provider-side handle to
+    quote in a support request.
+versioning:
+  style: none-in-transport
+  current: '1.9.0'
+  detail: >-
+    The base URL carries NO version segment — it is https://api.apileague.com/<operation> flat.
+    The only version that exists is OpenAPI `info.version`, currently 1.9.0, which the
+    generated SDKs mirror (npm apileague-js 1.9.0, published 2025-12-09). There is no version
+    header, no date-pinning, no version query parameter, and no published policy about what
+    happens to a caller when the contract changes underneath them.
+  cross_link: lifecycle/api-league-lifecycle.yml
+error_envelope:
+  format: vendor-json
+  rfc9457: false
+  shape: '{"status":"failure","code":<int>,"message":"<text>"}'
+  statuses: [401, 402, 403, 404, 406, 429]
+  note: >-
+    The same six error statuses are declared on all 55 operations. 402 means the daily token
+    quota is exhausted; 429 means the per-second rate or the concurrency ceiling was hit. See
+    errors/api-league-problem-types.yml.
+  cross_link: errors/api-league-problem-types.yml
+rate_limit_signaling:
+  headers:
+    - {name: X-API-Quota-Request, meaning: tokens consumed by THIS request}
+    - {name: X-API-Quota-Used, meaning: tokens used today in total, resets at midnight UTC}
+    - {name: X-API-Quota-Left, meaning: tokens remaining today on the plan}
+  status_on_quota_exhausted: 402
+  status_on_rate_exceeded: 429
+  retry_after: false
+  standard_ratelimit_headers: false
+  note: >-
+    API League signals QUOTA on every successful response but does not signal RATE. The three
+    X-API-Quota-* headers are a genuinely good agent affordance — an agent can read its
+    remaining budget off any response instead of guessing. What is missing is the other half:
+    no RateLimit-* / X-RateLimit-* headers for the per-second and concurrency ceilings, and no
+    Retry-After on a 429, so an agent that is throttled is told only that it was throttled.
+  cross_link: rate-limits/api-league-rate-limits.yml
+cost_signaling:
+  unit: token
+  detail: >-
+    Billing is per TOKEN, not per request, and the token cost of a call varies by endpoint AND
+    by how the parameters are set — the provider states the per-endpoint cost is published in
+    each endpoint's documentation page. X-API-Quota-Request returns the actual cost of the call
+    just made, which is the closest thing to a runtime price signal in this API.
+  docs: https://apileague.com/pricing/
+dry_run_mode:
+  supported: na
+  note: >-
+    No write surface worth rehearsing (see reversibility). There is no test mode, no test key
+    prefix and no simulated-response mode; the login-gated Playground is the only place to try
+    a call, and it spends real quota against the caller's own key.
+reversibility:
+  grade: none
+  applicable: true
+  write_surface: minimal
+  detail: >-
+    54 of the 55 operations are pure reads and have nothing to reverse. ONE operation writes:
+    storeKeyValueGETAPI (GET /store-key-value) persists a value against a key in API League's
+    key-value store. API League publishes NO reversal operation for it — there is no
+    delete-key, no undo, no restore, and no versioning of a stored value — and the docs state
+    no retention or recovery window. The only way to undo a write is to store the previous
+    value again, which requires the caller to have kept it.
+  reversal_operations: []
+  windows: []
+  note: >-
+    Graded `none` rather than `na`: `na` would claim there is no write surface, and there is
+    one. Graded `none` rather than `documented`: `documented` would require a reversal path to
+    exist, and none is published. NO window has been asserted, because the docs state none —
+    inventing one here would tell an agent it can recover data that API League has never said
+    it keeps.
+  agent_guidance: >-
+    Before calling storeKeyValueGETAPI on an existing key, read the current value with
+    readKeyValueFromStoreAPI and keep it. That read-then-write is the only rollback available.
+caching:
+  supported: unknown-from-api
+  contractual_limit: >-
+    NOT a transport convention but it binds agents: the terms of use forbid storing or caching
+    API League data, except with prior written permission, and then for a maximum of ONE HOUR,
+    after which the cache must be deleted and refreshed. Data must be deleted entirely if
+    access ends. An agent building a durable index on top of this API is out of compliance by
+    default.
+  source: https://apileague.com/terms/
+cross_links:
+  authentication: authentication/api-league-authentication.yml
+  errors: errors/api-league-problem-types.yml
+  lifecycle: lifecycle/api-league-lifecycle.yml
+  rate_limits: rate-limits/api-league-rate-limits.yml
+  plans: plans/api-league-plans-pricing.yml
+  data_model: data-model/api-league-data-model.yml
+  conformance: conformance/api-league-conformance.yml
+evidence:
+  - {url: 'https://apileague.com/docs/authentication/', status: 200}
+  - {url: 'https://apileague.com/docs/quotas-and-rate-limiting/', status: 200}
+  - {url: 'https://apileague.com/docs/quick-start/', status: 200}
+  - {url: 'https://apileague.com/pricing/', status: 200}
+  - {url: 'https://apileague.com/terms/', status: 200}
+  - {url: 'https://api.apileague.com/', status: 401}
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

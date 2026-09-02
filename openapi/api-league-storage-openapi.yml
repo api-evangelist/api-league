@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: API League — Storage
+  description: API League is a Hub for World Class APIs.
+  version: 1.9.0
+  termsOfService: https://apileague.com/terms
+  contact:
+    name: David Urbansky
+    email: mail@apileague.com
+servers:
+- url: https://api.apileague.com
+tags:
+- name: Storage
+security:
+- apiKey: []
+- headerApiKey: []
+paths:
+  /read-key-value:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    value: '100'
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: key
+        description: The key for which the value is stored (max length 255 characters).
+        schema:
+          pattern: .
+          maxLength: 255
+          type: string
+          example: visitors24h
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/key-value-storage-api/
+      summary: Read Key Value from Store API
+      tags:
+      - Storage
+      description: Read a value from the key-value store. The key-value store is a simple storage system
+        that allows you to store and retrieve data using a key. The data is stored in the cloud and can
+        be accessed from anywhere. You can use the key-value store to store any type of data, such as
+        text or numbers. The key-value store is a great way to store data that you want to access from
+        multiple devices or locations.
+      operationId: readKeyValueFromStoreAPI
+      deprecated: false
+  /store-key-value:
+    get:
+      responses:
+        '200':
+          description: Success
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    nullable: true
+              examples:
+                Response:
+                  value:
+                    status: success
+        '401':
+          description: Unauthorized
+        '402':
+          description: Payment Required
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '406':
+          description: Not Acceptable
+        '429':
+          description: Too Many Requests
+      parameters:
+      - name: key
+        description: The key for which the value is stored (max length 255 characters).
+        schema:
+          pattern: .
+          maxLength: 255
+          type: string
+          example: visitors24h
+        required: true
+        style: form
+        explode: false
+        in: query
+      - name: value
+        description: The value that is supposed to be stored (max length 10,000 characters).
+        schema:
+          pattern: .
+          maxLength: 10000
+          type: string
+          example: 23578 visitors
+        required: true
+        style: form
+        explode: false
+        in: query
+      externalDocs:
+        description: Read entire docs
+        url: https://apileague.com/apis/key-value-storage-api/
+      summary: Store Key Value (GET) API
+      tags:
+      - Storage
+      description: Store a value in the key-value store. The key-value store is a simple storage system
+        that allows you to store and retrieve data using a key. The data is stored in the cloud and can
+        be accessed from anywhere. You can use the key-value store to store any type of data, such as
+        text or numbers. The key-value store is a great way to store data that you want to access from
+        multiple devices or locations.
+      operationId: storeKeyValueGETAPI
+      deprecated: false
+components:
+  securitySchemes:
+    apiKey:
+      name: api-key
+      type: apiKey
+      in: query
+    headerApiKey:
+      name: x-api-key
+      type: apiKey
+      in: header

@@ -1,0 +1,219 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://apileague.com/sdks/ (the provider's own SDK page), the linked first-party client
+  monorepo github.com/ddsky/api-league-clients, and registry metadata sweeps of
+  registry.npmjs.org, pypi.org, rubygems.org, repo.packagist.org, crates.io,
+  search.maven.org, azuresearch-usnc.nuget.org and proxy.golang.org.
+provider: API League
+providerId: api-league
+description: >-
+  API League generates client libraries for 21 languages with OpenAPI Generator and ships them
+  from ONE monorepo — github.com/ddsky/api-league-clients — as source trees plus per-language
+  zip downloads linked from https://apileague.com/sdks/. The distribution finding is the
+  important one: only ONE of the 21 is actually published to a package registry. Every other
+  language is git-clone-or-download-a-zip, which means `npm install` / `pip install` /
+  `go get` do not reach them and a consumer cannot pin, diff, or receive a version of them.
+summary:
+  languages_generated: 21
+  registry_published_count: 1
+  registry_absent_count: 20
+  first_party_sdk_count: 1
+  generator: OpenAPI Generator (openapi-generator-cli 7.5.0 / 7.8.0-SNAPSHOT, vendored in the repo)
+  monorepo: https://github.com/ddsky/api-league-clients
+  monorepo_license: MIT
+  monorepo_last_push: '2025-12-09'
+  note: >-
+    SDK version 1.9.0 tracks OpenAPI `info.version` 1.9.0 exactly, and the npm publish date
+    (2025-12-09) matches the monorepo's last push to the hour — the clients are regenerated
+    with the spec rather than drifting behind it. That is the opposite of the usual
+    abandonment signal, and it is the reason the registry gap is a distribution problem
+    rather than a maintenance one.
+
+github_organization:
+  found: true
+  url: https://github.com/ddsky
+  note: >-
+    ddsky is the GitHub identity of skycraft GmbH (Dresden, Germany), the company behind API
+    League — confirmed by https://apileague.com/about (skycraft GmbH), by the sdks page
+    linking github.com/ddsky/api-league-clients as "API League clients on GitHub", and by the
+    Discord invite discord.gg/QudH9DTNzx being issued by the Discord user `ddsky`.
+
+packages:
+  - language: javascript
+    registry: npm
+    name: apileague-js
+    url: https://www.npmjs.com/package/apileague-js
+    install: npm install apileague-js
+    official: true
+    version: 1.9.0
+    published: '2025-12-09'
+    license: Unlicense
+    source: https://registry.npmjs.org/apileague-js
+    repository: https://github.com/ddsky/api-league-clients/tree/master/javascript
+    note: >-
+      The only API League client published to a public package registry. Description string
+      "API League is a Hub for World Class APIs." matches OpenAPI info.description verbatim.
+      15 versions published between 2024-05-21 and 2025-12-09.
+
+unpublished_clients:
+  note: >-
+    Generated and distributed from the monorepo, but ABSENT from their language's registry —
+    each was probed by name and the registry answered 404 / zero hits. `version` is read from
+    the generated package manifest in the repo where one is present; `published: null` means
+    there is no registry release to date, not that the code is missing.
+  entries:
+    - language: python
+      registry: pypi
+      name: apileague
+      version: 1.9.0
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/python
+      evidence: https://pypi.org/pypi/apileague/json -> 404
+      note: setup.py declares NAME "apileague", VERSION "1.9.0"; never uploaded to PyPI.
+    - language: java
+      registry: maven-central
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/java
+      evidence: 'https://search.maven.org/solrsearch/select?q=apileague -> numFound 0'
+    - language: csharp
+      registry: nuget
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/csharp
+      evidence: 'https://azuresearch-usnc.nuget.org/query?q=apileague -> totalHits 0'
+    - language: ruby
+      registry: rubygems
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/ruby
+      evidence: 'https://rubygems.org/api/v1/gems/apileague.json -> 404; search -> 0 results'
+    - language: php
+      registry: packagist
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/php
+      evidence: 'https://packagist.org/search.json?q=apileague -> no API League package (only riot-api-league LoL packages)'
+    - language: rust
+      registry: crates.io
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/rust
+      evidence: 'https://crates.io/api/v1/crates/apileague -> "crate `apileague` does not exist"'
+    - language: go
+      registry: go-modules
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/go
+      evidence: 'https://proxy.golang.org/github.com/ddsky/api-league-clients/go/@v/list -> HTTP 200, EMPTY body (no tagged module versions)'
+    - language: typescript
+      registry: npm
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/typescript
+      evidence: no distinct typescript package on npm; apileague-js is the published JavaScript build
+    - language: kotlin
+      registry: maven-central
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/kotlin
+    - language: dart
+      registry: pub.dev
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/dart
+    - language: elixir
+      registry: hex.pm
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/elixir
+    - language: perl
+      registry: cpan
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/perl
+    - language: cpp
+      registry: none
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/cpp
+    - language: clojure
+      registry: clojars
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/clojure
+    - language: haskell
+      registry: hackage
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/haskell
+    - language: erlang
+      registry: hex.pm
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/erlang
+    - language: elm
+      registry: elm-packages
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/elm
+    - language: lua
+      registry: luarocks
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/lua
+    - language: android
+      registry: maven-central
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/android
+    - language: angular
+      registry: npm
+      name: null
+      version: null
+      published: null
+      source: https://github.com/ddsky/api-league-clients/tree/master/angular
+
+third_party_packages:
+  - language: javascript
+    registry: npm
+    name: apileague
+    url: https://www.npmjs.com/package/apileague
+    official: false
+    version: 1.0.0
+    published: '2016-12-26'
+    note: >-
+      NOT API League. A 2016 League of Legends wrapper by npm user `muporash`
+      (git://github.com/muporash/apiLeague.git). Recorded so a later round does not mistake
+      the name collision for a first-party client.
+
+distribution:
+  zips: 'https://github.com/ddsky/api-league-clients/tree/master/zips/<language>-client.zip'
+  docs: 'https://github.com/ddsky/api-league-clients/tree/master/<language>'
+  spec: https://raw.githubusercontent.com/ddsky/api-league-clients/master/apileague-openapi-3.json
+  note: >-
+    The sdks page also tells developers to generate their own client from the OpenAPI 3 JSON,
+    which is the provider's stated answer for the 20 unpublished languages.
+
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

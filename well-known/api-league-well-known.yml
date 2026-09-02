@@ -1,0 +1,77 @@
+generated: '2026-09-02'
+method: probed
+source: >-
+  Direct unauthenticated HTTPS probes of every host in apis.yml and every OpenAPI servers[]
+  host, on 2026-09-02.
+name: API League .well-known Probe
+provider: API League
+providerId: api-league
+description: >-
+  NO .well-known document is served on any API League host. Neither host can serve one, and
+  each fails in a different way that is worth recording separately.
+
+  apileague.com is a CATCH-ALL: every unknown path returns HTTP 200 with the identical
+  21,974-byte homepage HTML. That is the same body the site root returns, and the same body a
+  guaranteed-nonexistent control path returns, so a 200 on this host carries no information at
+  all. It is also why the pre-existing llms/api-league-llms-probe.yml recorded /llms.txt as a
+  soft-404 rather than a published document.
+
+  api.apileague.com sits behind a blanket API-key wall: EVERY path, including the control,
+  returns HTTP 401 with the body {"status":"failure","code":401,"message":"Please read
+  https://apileague.com/docs/authentication"}. A 401 is not a document either, and it must not
+  be read as evidence that a document exists behind it.
+
+  NO WellKnown and NO SecurityTxt pointer is emitted for this provider. Nothing here is a hit.
+hit_count: 0
+path_echo_control: passed
+soft_404_host: apileague.com
+soft_404_control:
+  url: https://apileague.com/.well-known/api-league-negative-control-7f3ab91c.json
+  status: 200
+  content_type: text/html; charset=utf-8
+  bytes: 21974
+  note: >-
+    Control probe of a path that cannot exist. It returned the identical 21,974-byte homepage,
+    which is the same byte count returned by the site root and by every /.well-known/* path
+    below. Any 200 on apileague.com with this byte count is the catch-all page, not a document.
+auth_wall_host: api.apileague.com
+auth_wall_control:
+  url: https://api.apileague.com/.well-known/api-league-negative-control-7f3ab91c.json
+  status: 401
+  content_type: application/json;charset=UTF-8
+  bytes: 98
+  note: >-
+    Control probe. The API host answers 401 for a path that cannot exist, so the 401 on every
+    real path below is the gateway's blanket auth check, not a gated document.
+hosts:
+  - host: https://apileague.com
+    documents:
+      - {path: /.well-known/security.txt, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/openid-configuration, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/oauth-authorization-server, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/oauth-protected-resource, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/api-catalog, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/api-catalog.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/ai-plugin.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/ucp.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/acp.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes)}
+      - {path: /.well-known/aauth-resource.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes) — no issuer, no jwks_uri, not a document}
+      - {path: /.well-known/agent-card.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes) — REJECTED, HTML body, no AgentCard shape}
+      - {path: /.well-known/agent.json, status: 200, file: null, note: soft-404 catch-all HTML (21974 bytes) — REJECTED, HTML body, no AgentCard shape}
+  - host: https://api.apileague.com
+    documents:
+      - {path: /.well-known/security.txt, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/openid-configuration, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/oauth-authorization-server, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/oauth-protected-resource, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/api-catalog, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/api-catalog.json, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/ai-plugin.json, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/ucp.json, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/acp.json, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/aauth-resource.json, status: 401, file: null, note: blanket API-key wall, JSON error body}
+      - {path: /.well-known/agent-card.json, status: 401, file: null, note: blanket API-key wall — no card}
+      - {path: /.well-known/agent.json, status: 401, file: null, note: blanket API-key wall — no card}
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
