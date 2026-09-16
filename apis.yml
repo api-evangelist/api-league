@@ -43,14 +43,10 @@ tags:
   - Books
   - Developer Tools
   - Food
-  - Games
   - Humor
-  - Media
   - News
-  - OpenAPI
   - SDK
   - Text Processing
-  - Web Scraping
 tags_raw:
   - API Marketplace
   - Books
@@ -66,71 +62,378 @@ created: '2025-03-01'
 modified: '2026-09-02'
 specificationVersion: '0.23'
 apis:
-  - aid: api-league:api-league-platform
-    name: API League Platform
-    description: >-
-      The API League Platform exposes 55 read-only GET operations across twelve categories:
-      Books (2), News (3), Humor (6), Food (4), Knowledge (5), Games (3), Art (4), Web (6),
-      Text (13), Media (6), Math (1) and Storage (2). One API key covers the whole surface —
-      there is no OAuth and no scopes — sent as an api-key query parameter or, preferably, an
-      x-api-key header. Errors use a flat vendor JSON envelope with six declared statuses
-      (401, 402, 403, 404, 406, 429) rather than RFC 9457. Search-shaped operations paginate
-      with number/offset. SDKs are generated for 21 languages from the published OpenAPI 3.0
-      contract.
-    humanURL: https://apileague.com
-    baseURL: https://api.apileague.com
-    tags:
-      - API Marketplace
-      - Developer Tools
-      - Multi-Category
-      - SDK
-    properties:
-      - type: Documentation
-        url: https://apileague.com/apis/
-      - type: APIReference
-        url: https://apileague.com/apis/
-      - type: GettingStarted
-        url: https://apileague.com/docs/quick-start/
-      - type: SignUp
-        url: https://apileague.com/console/
-      - type: OpenAPI
-        url: openapi/_original/api-league-openapi.json
-      - type: OpenAPI
-        url: openapi/api-league-books-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-news-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-humor-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-food-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-knowledge-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-games-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-art-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-web-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-text-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-media-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-math-openapi.yml
-      - type: OpenAPI
-        url: openapi/api-league-storage-openapi.yml
-      - type: Authentication
-        url: authentication/api-league-authentication.yml
-      - type: Conventions
-        url: conventions/api-league-conventions.yml
-      - type: ErrorCatalog
-        url: errors/api-league-problem-types.yml
-      - type: DataModel
-        url: data-model/api-league-data-model.yml
-      - type: RateLimits
-        url: rate-limits/api-league-rate-limits.yml
-      - type: Postman
-        url: https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-art-api
+  name: API League Art API
+  description: The Art API from API League — 4 operation(s) for art.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Art
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-art-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-books-api
+  name: API League Books API
+  description: The Books API from API League — 2 operation(s) for books.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Books
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-books-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-food-api
+  name: API League Food API
+  description: The Food API from API League — 4 operation(s) for food.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Food
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-food-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-games-api
+  name: API League Games API
+  description: The Games API from API League — 3 operation(s) for games.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Games
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-games-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-humor-api
+  name: API League Humor API
+  description: The Humor API from API League — 6 operation(s) for humor.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Humor
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-humor-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-knowledge-api
+  name: API League Knowledge API
+  description: The Knowledge API from API League — 5 operation(s) for knowledge.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Knowledge
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-knowledge-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-math-api
+  name: API League Math API
+  description: The Math API from API League — 1 operation(s) for math.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Math
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-math-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-media-api
+  name: API League Media API
+  description: The Media API from API League — 6 operation(s) for media.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-media-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-news-api
+  name: API League News API
+  description: The News API from API League — 3 operation(s) for news.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - News
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-news-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-storage-api
+  name: API League Storage API
+  description: The Storage API from API League — 2 operation(s) for storage.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Storage
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-storage-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-text-api
+  name: API League Text API
+  description: The Text API from API League — 13 operation(s) for text.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Text
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-text-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
+- aid: api-league:api-league-web-api
+  name: API League Web API
+  description: The Web API from API League — 6 operation(s) for web.
+  humanURL: https://apileague.com
+  baseURL: https://api.apileague.com
+  tags:
+  - Web
+  properties:
+  - type: OpenAPI
+    url: openapi/api-league-web-api-openapi.yml
+  - type: Documentation
+    url: https://apileague.com/apis/
+  - type: APIReference
+    url: https://apileague.com/apis/
+  - type: GettingStarted
+    url: https://apileague.com/docs/quick-start/
+  - type: SignUp
+    url: https://apileague.com/console/
+  - type: Authentication
+    url: authentication/api-league-authentication.yml
+  - type: Conventions
+    url: conventions/api-league-conventions.yml
+  - type: ErrorCatalog
+    url: errors/api-league-problem-types.yml
+  - type: DataModel
+    url: data-model/api-league-data-model.yml
+  - type: RateLimits
+    url: rate-limits/api-league-rate-limits.yml
+  - type: Postman
+    url: >-
+      https://www.postman.com/spoonacular-api/workspace/api-league/collection/7431899-68556c9b-453c-4759-bd5e-4f783b0117e8
 common:
   - type: AgenticAccess
     url: agentic-access/api-league-agentic-access.yml
