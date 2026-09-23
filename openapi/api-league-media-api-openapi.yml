@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: API League — Media
+  title: League Media API
   description: API League is a Hub for World Class APIs.
-  version: 1.9.0
   termsOfService: https://apileague.com/terms
+  version: 1.9.0
   contact:
     name: David Urbansky
     email: mail@apileague.com
 servers:
 - url: https://api.apileague.com
-tags:
-- name: Media
 security:
 - apiKey: []
 - headerApiKey: []
+tags:
+- name: Media
 paths:
   /take-screenshot:
     get:
@@ -80,8 +80,7 @@ paths:
       summary: Screenshot API
       tags:
       - Media
-      description: Take a screenshot of a web page by providing the URL. IP blocks, captchas, location
-        restrictions etc. will be resolved in the process. The screenshot will be returned as an image.
+      description: Take a screenshot of a web page by providing the URL. IP blocks, captchas, location restrictions etc. will be resolved in the process. The screenshot will be returned as an image.
       operationId: screenshotAPI
       deprecated: false
   /search-images:
@@ -101,11 +100,13 @@ paths:
                       type: object
                       properties:
                         url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         thumbnail:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         width:
                           type: integer
                         height:
@@ -114,14 +115,17 @@ paths:
                           type: object
                           properties:
                             name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             link:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                         id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
               examples:
                 Response:
                   value:
@@ -192,9 +196,7 @@ paths:
       summary: Search Royalty Free Images API
       tags:
       - Media
-      description: Search through hundreds of thousands of royalty free images to match any topic you
-        want. The images are returned in a list with the URL, width, and height of the image. Additionally,
-        you can find the license type and link of the image.
+      description: Search through hundreds of thousands of royalty free images to match any topic you want. The images are returned in a list with the URL, width, and height of the image. Additionally, you can find the license type and link of the image.
       operationId: searchRoyaltyFreeImagesAPI
       deprecated: false
   /search-icons:
@@ -214,14 +216,17 @@ paths:
                       type: object
                       properties:
                         id:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         thumbnail:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         width:
                           type: integer
                         height:
@@ -230,11 +235,13 @@ paths:
                           type: object
                           properties:
                             name:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
                             link:
-                              type: string
-                              nullable: true
+                              type:
+                              - string
+                              - 'null'
               examples:
                 Response:
                   value:
@@ -377,10 +384,7 @@ paths:
         explode: false
         in: query
       - name: crop
-        description: Whether the image should be cropped. If true, the returned image will have exactly
-          the given width and height and some content might have been cropped from the left/right or top/bottom.
-          If this parameter is false, the image will keep its ratio but will be resized to fill the given
-          box. Some content might be outside the box though.
+        description: Whether the image should be cropped. If true, the returned image will have exactly the given width and height and some content might have been cropped from the left/right or top/bottom. If this parameter is false, the image will keep its ratio but will be resized to fill the given box. Some content might be outside the box though.
         schema:
           type: boolean
           example: true
@@ -394,9 +398,7 @@ paths:
       summary: Rescale Image API
       tags:
       - Media
-      description: Rescale an image to a specific width and height. The image will be resized to fit the
-        specified width and height while maintaining the original aspect ratio unless the crop parameter
-        is set to true. The image will be returned in the same format as the original image.
+      description: Rescale an image to a specific width and height. The image will be resized to fit the specified width and height while maintaining the original aspect ratio unless the crop parameter is set to true. The image will be returned in the same format as the original image.
       operationId: rescaleImageAPI
       deprecated: false
   /detect-color:
@@ -413,14 +415,17 @@ paths:
                   type: object
                   properties:
                     hex_code:
-                      type: string
-                      nullable: true
+                      type:
+                      - string
+                      - 'null'
                     specific_color:
-                      type: string
-                      nullable: true
+                      type:
+                      - string
+                      - 'null'
                     main_color:
-                      type: string
-                      nullable: true
+                      type:
+                      - string
+                      - 'null'
               examples:
                 Response:
                   value:
@@ -463,8 +468,7 @@ paths:
       summary: Detect Main Image Color API
       tags:
       - Media
-      description: 'Detect the main color of an image. The API returns a list of colors and their hex
-        codes. The API supports images in the following formats: JPEG, PNG, and GIF.'
+      description: 'Detect the main color of an image. The API returns a list of colors and their hex codes. The API supports images in the following formats: JPEG, PNG, and GIF.'
       operationId: detectMainImageColorAPI
       deprecated: false
   /search-vectors:
@@ -484,17 +488,21 @@ paths:
                       type: object
                       properties:
                         title:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         license:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         author:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         image_url:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
               examples:
                 Response:
                   value:
@@ -565,8 +573,7 @@ paths:
       summary: Vector Search API
       tags:
       - Media
-      description: Search through over 700,000 free to use vector icons. The license is either "PUBLIC_DOMAIN"
-        or "ATTRIBUTION". If it is "ATTRIBUTION" just attribute the author somewhere in your project.
+      description: Search through over 700,000 free to use vector icons. The license is either "PUBLIC_DOMAIN" or "ATTRIBUTION". If it is "ATTRIBUTION" just attribute the author somewhere in your project.
       operationId: vectorSearchAPI
       deprecated: false
 components:

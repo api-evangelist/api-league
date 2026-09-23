@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: API League — Math
+  title: League Math API
   description: API League is a Hub for World Class APIs.
-  version: 1.9.0
   termsOfService: https://apileague.com/terms
+  version: 1.9.0
   contact:
     name: David Urbansky
     email: mail@apileague.com
 servers:
 - url: https://api.apileague.com
-tags:
-- name: Math
 security:
 - apiKey: []
 - headerApiKey: []
+tags:
+- name: Math
 paths:
   /convert-units:
     get:
@@ -29,8 +29,9 @@ paths:
                   target_amount:
                     type: number
                   target_unit:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
               examples:
                 Response:
                   value:
@@ -84,8 +85,7 @@ paths:
         explode: false
         in: query
       - name: food-name
-        description: An optional food name. For converting foods the food is relevant as they have different
-          densities.
+        description: An optional food name. For converting foods the food is relevant as they have different densities.
         schema:
           pattern: .
           maxLength: 200
@@ -101,8 +101,7 @@ paths:
       summary: Convert Units API
       tags:
       - Math
-      description: Convert units from one to another. The API returns the amount and the unit of the target
-        unit.
+      description: Convert units from one to another. The API returns the amount and the unit of the target unit.
       operationId: convertUnitsAPI
       deprecated: false
 components:

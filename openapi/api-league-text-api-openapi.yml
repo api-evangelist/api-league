@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: API League — Text
+  title: League Text API
   description: API League is a Hub for World Class APIs.
-  version: 1.9.0
   termsOfService: https://apileague.com/terms
+  version: 1.9.0
   contact:
     name: David Urbansky
     email: mail@apileague.com
 servers:
 - url: https://api.apileague.com
-tags:
-- name: Text
 security:
 - apiKey: []
 - headerApiKey: []
+tags:
+- name: Text
 paths:
   /correct-spelling:
     get:
@@ -27,8 +27,9 @@ paths:
                 type: object
                 properties:
                   corrected_text:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
               examples:
                 Response:
                   value:
@@ -74,9 +75,7 @@ paths:
       summary: Correct Spelling API
       tags:
       - Text
-      description: 'The API corrects spelling mistakes in a given text. It returns the corrected text
-        or the original text if nothing was corrected. This API supports text in the following languages:
-        English (en), French (fr), German (de), Italian (it), and Spanish (es).'
+      description: 'The API corrects spelling mistakes in a given text. It returns the corrected text or the original text if nothing was corrected. This API supports text in the following languages: English (en), French (fr), German (de), Italian (it), and Spanish (es).'
       operationId: correctSpellingAPI
       deprecated: false
   /detect-language:
@@ -93,8 +92,9 @@ paths:
                   type: object
                   properties:
                     language:
-                      type: string
-                      nullable: true
+                      type:
+                      - string
+                      - 'null'
                     confidence:
                       type: number
               examples:
@@ -146,9 +146,7 @@ paths:
       summary: Detect Language API
       tags:
       - Text
-      description: Detect the language of the given text. The API returns a list of languages and their
-        confidence scores. The confidence score is a value between 0 and 1, where 1 means the language
-        was detected with 100% confidence. The API supports text in 22 languages.
+      description: Detect the language of the given text. The API returns a list of languages and their confidence scores. The confidence score is a value between 0 and 1, where 1 means the language was detected with 100% confidence. The API supports text in 22 languages.
       operationId: detectLanguageAPI
       deprecated: false
   /detect-sentiment:
@@ -166,8 +164,9 @@ paths:
                     type: object
                     properties:
                       sentiment:
-                        type: string
-                        nullable: true
+                        type:
+                        - string
+                        - 'null'
                       confidence:
                         type: integer
                       average_confidence:
@@ -178,8 +177,9 @@ paths:
                       type: object
                       properties:
                         sentiment:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         offset:
                           type: integer
                         confidence:
@@ -228,8 +228,7 @@ paths:
       summary: Detect Sentiment API
       tags:
       - Text
-      description: Detect the sentiment (positive or negative) of a given text. The entire document is
-        scored and also each individual sentence.
+      description: Detect the sentiment (positive or negative) of a given text. The entire document is scored and also each individual sentence.
       operationId: detectSentimentAPI
       deprecated: false
   /score-text:
@@ -493,11 +492,7 @@ paths:
       summary: Score Text API
       tags:
       - Text
-      description: Score the readability, skimmability, interestingness, and style of a text. The readability
-        score is based on the average length of the sentences and the average length of the words in the
-        text. The text is scored with multiple readability scores such as Flesch, Smog, ARI, LIX, Kincaid,
-        Fog, and Coleman Liau. Additionally, information such as the estimated reading time in seconds
-        is returned.
+      description: Score the readability, skimmability, interestingness, and style of a text. The readability score is based on the average length of the sentences and the average length of the words in the text. The text is scored with multiple readability scores such as Flesch, Smog, ARI, LIX, Kincaid, Fog, and Coleman Liau. Additionally, information such as the estimated reading time in seconds is returned.
       operationId: scoreTextAPI
       deprecated: false
   /score-readability:
@@ -589,9 +584,7 @@ paths:
       summary: Score Readability API
       tags:
       - Text
-      description: Score the readability of a text. The readability score is based on the average length
-        of the sentences and the average length of the words in the text. The text is score with multiple
-        readability scores such as Flesch, Smog, ARI, LIX, Kincaid, Fog, and Coleman Liau.
+      description: Score the readability of a text. The readability score is based on the average length of the sentences and the average length of the words in the text. The text is score with multiple readability scores such as Flesch, Smog, ARI, LIX, Kincaid, Fog, and Coleman Liau.
       operationId: scoreReadabilityAPI
       deprecated: false
   /extract-dates:
@@ -613,13 +606,15 @@ paths:
                         start_position:
                           type: integer
                         date:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         normalized_date:
                           type: number
                         tag:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         end_position:
                           type: integer
               examples:
@@ -661,10 +656,7 @@ paths:
       summary: Extract Dates API
       tags:
       - Text
-      description: Extract dates from a given text. The API will return a list of dates with their positions
-        in the text and the normalized form of the date. A large list of date formats is supported. For
-        example, the text could contain dates in the form of "April 5th, 2035", "04/05/2035", or "05.04.2035".
-        The normalized date is the date in the form of a timestamp (milliseconds since 1970).
+      description: Extract dates from a given text. The API will return a list of dates with their positions in the text and the normalized form of the date. A large list of date formats is supported. For example, the text could contain dates in the form of "April 5th, 2035", "04/05/2035", or "05.04.2035". The normalized date is the date in the form of a timestamp (milliseconds since 1970).
       operationId: extractDatesAPI
       deprecated: false
   /detect-gender:
@@ -679,8 +671,9 @@ paths:
                 type: object
                 properties:
                   name:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   probability_male:
                     type: number
                   probability_female:
@@ -724,9 +717,7 @@ paths:
       summary: Detect Gender by Name API
       tags:
       - Text
-      description: Detect the likelihood that a name is given to a male or female (aka to "genderize"
-        a name). While there are more than two genders, this API is limited to the binary classification
-        as the name is given to the baby when it is born and only the sex is known.
+      description: Detect the likelihood that a name is given to a male or female (aka to "genderize" a name). While there are more than two genders, this API is limited to the binary classification as the name is given to the baby when it is born and only the sex is known.
       operationId: detectGenderByNameAPI
       deprecated: false
   /list-synonyms:
@@ -743,8 +734,9 @@ paths:
                   synonyms:
                     type: array
                     items:
-                      type: string
-                      nullable: true
+                      type:
+                      - string
+                      - 'null'
               examples:
                 Response:
                   value:
@@ -797,8 +789,9 @@ paths:
                 type: object
                 properties:
                   tagged_text:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
               examples:
                 Response:
                   value:
@@ -833,9 +826,7 @@ paths:
       summary: Tag Part of Speech API
       tags:
       - Text
-      description: Part of speech tagging is the process of marking up a word in a text as corresponding
-        to a particular part of speech, based on both its definition and its context. This is a simple
-        API that takes a text and returns the tagged text.
+      description: Part of speech tagging is the process of marking up a word in a text as corresponding to a particular part of speech, based on both its definition and its context. This is a simple API that takes a text and returns the tagged text.
       operationId: tagPartOfSpeechAPI
       deprecated: false
   /stem-text:
@@ -850,11 +841,13 @@ paths:
                 type: object
                 properties:
                   original:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   stemmed:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
               examples:
                 Response:
                   value:
@@ -890,8 +883,7 @@ paths:
       summary: Stem Text API
       tags:
       - Text
-      description: The Text Stemming API is used to get the root form of a word. It is useful for searching
-        and natural language processing.
+      description: The Text Stemming API is used to get the root form of a word. It is useful for searching and natural language processing.
       operationId: stemTextAPI
       deprecated: false
   /singularize-word:
@@ -906,11 +898,13 @@ paths:
                 type: object
                 properties:
                   original:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   singular:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
               examples:
                 Response:
                   value:
@@ -961,11 +955,13 @@ paths:
                 type: object
                 properties:
                   original:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                   plural:
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
               examples:
                 Response:
                   value:
@@ -1021,18 +1017,21 @@ paths:
                       type: object
                       properties:
                         type:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         value:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
                         start_position:
                           type: integer
                         end_position:
                           type: integer
                         image:
-                          type: string
-                          nullable: true
+                          type:
+                          - string
+                          - 'null'
               examples:
                 Response:
                   value:
@@ -1076,11 +1075,7 @@ paths:
       summary: Extract Entities API
       tags:
       - Text
-      description: Extract entities from a text. An entity is a word or a group of words that represent
-        a concept. For example, the word "Canada" represents the concept of a country. The word "Jim Carrey"
-        represents the concept of a person. The word "Tesla" represents the concept of a company. The
-        API will return a list of entities found in the text. The entities are classified into different
-        types such as person, location, organization, etc.
+      description: Extract entities from a text. An entity is a word or a group of words that represent a concept. For example, the word "Canada" represents the concept of a country. The word "Jim Carrey" represents the concept of a person. The word "Tesla" represents the concept of a company. The API will return a list of entities found in the text. The entities are classified into different types such as person, location, organization, etc.
       operationId: extractEntitiesAPI
       deprecated: false
 components:
