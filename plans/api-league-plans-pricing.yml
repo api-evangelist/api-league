@@ -126,3 +126,57 @@ evidence:
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units:
+  - object
+  - rate
+  - token
+  plans:
+  - name: Free
+    access: freemium
+    model: metered
+    model_how: derived
+    units:
+    - object
+    - rate
+    - token
+    periods:
+    - day
+    - minute
+  - name: Rookie
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - object
+    - rate
+    - token
+    periods:
+    - day
+    - second
+  - name: Pro
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - object
+    - rate
+    - token
+    periods:
+    - day
+    - second
+  - name: Champion
+    access: paid
+    model: metered
+    model_how: derived
+    units:
+    - object
+    - rate
+    - token
+    periods:
+    - day
+    - second
