@@ -1,0 +1,98 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://apileague.com/pricing/
+sources:
+- https://apileague.com/pricing/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: Token-based API pricing with four tiers; free tier requires backlink and non-commercial use.
+plan_count: 4
+currency: USD
+plans:
+- name: Free
+  price_text: $ 0 /mo
+  price: 0
+  currency: USD
+  period: month
+  unit: tokens/day
+  included_quota: 50 tokens/day
+  overage: then no more requests
+- name: Rookie
+  price_text: $ 7 /mo
+  price: 7
+  currency: USD
+  period: month
+  unit: tokens/day
+  included_quota: 500 tokens/day
+  overage: then $0.006 /token
+- name: Pro
+  price_text: $ 39 /mo
+  price: 39
+  currency: USD
+  period: month
+  unit: tokens/day
+  included_quota: 5,000 tokens/day
+  overage: then $0.004 /token
+- name: Champion
+  price_text: $ 199 /mo
+  price: 199
+  currency: USD
+  period: month
+  unit: tokens/day
+  included_quota: 50,000 tokens/day
+  overage: then $0.002 /token
+rate_limit_statements:
+- 1 request/s 1 conc. request
+- 2 request/s 5 conc. request
+- 10 request/s 10 conc. request
+- 20 request/s 20 conc. request
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Rookie
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Champion
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
